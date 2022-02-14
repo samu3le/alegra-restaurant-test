@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,13 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('orders_details', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('ingredient_id');
-            $table->foreign('ingredient_id')->references('id')->on('ingredients');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
 
-            $table->integer('stock');
+            $table->unsignedBigInteger('order_id')->nullable();
+            $table->foreign('order_id')->references('id')->on('orders');
+
+            $table->integer('state');
 
             $table->timestamp('created_at', $precision = 0)->default(DB::raw('NOW()'));
             $table->timestamp('updated_at', $precision = 0)->nullable();
@@ -35,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('orders_details');
     }
 };

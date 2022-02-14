@@ -14,13 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_historyes', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->unsignedBigInteger('inventory_id');
-            $table->foreign('inventory_id')->references('id')->on('inventories');
-
-            $table->integer('quantity');
+            $table->string('name')->unique();
+            $table->boolean('is_active')->default(1);
 
             $table->unsignedBigInteger('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
@@ -38,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shopping_historyes');
+        Schema::dropIfExists('products');
     }
 };

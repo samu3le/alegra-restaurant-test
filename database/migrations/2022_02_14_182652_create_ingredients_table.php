@@ -14,13 +14,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('ingredients', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->unique();
+            $table->string('key')->unique();
+            $table->boolean('is_active')->default(1);
 
-            $table->unsignedBigInteger('ingredient_id');
-            $table->foreign('ingredient_id')->references('id')->on('ingredients');
-
-            $table->integer('stock');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
 
             $table->timestamp('created_at', $precision = 0)->default(DB::raw('NOW()'));
             $table->timestamp('updated_at', $precision = 0)->nullable();
@@ -35,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('ingredients');
     }
 };

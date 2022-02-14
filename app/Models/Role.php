@@ -33,7 +33,7 @@ class Role extends Model
         });
 
         static::creating(function($item) {
-            $item->created_by = config('app.env') === 'testing' ? 1 : \Auth::user()->id;
+            $item->created_by = config('app.env') === 'testing' ? 1 :  1;//\Auth::user()->id;
             \Log::info('Role Creating Event:'.$item);
         });
 
