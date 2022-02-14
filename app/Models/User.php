@@ -51,9 +51,9 @@ class User extends Authenticatable
         static::creating(function( $user ) {
             $user->uuid = (string) Str::uuid();
             $user->password = Hash::make($user->password);
-            // if(!$user->role_id) {
-            //     $user->role_id = Role::where('name', 'user')->first()->id;
-            // }
+            if(!$user->role_id) {
+                $user->role_id = Role::where('name', 'user')->first()->id;
+            }
 
             \Log::info('User Creating Event:'.$user);
         });

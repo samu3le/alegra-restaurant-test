@@ -51,5 +51,35 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ->post('update', Controllers\RoleController\Update::class);
 
         });
+
+        Route::prefix('users')->group(function () {
+
+            Route::middleware([
+                Validations\Requests\Pagination::class,
+                Requests\UserValidation\GetAll::class
+            ])
+            ->get('get_all',  Controllers\UserController\GetAll::class);
+
+            Route::middleware([
+                Requests\UserValidation\Find::class
+            ])
+            ->get('find',  Controllers\UserController\Find::class);
+
+            Route::middleware([
+                Requests\UserValidation\Create::class
+            ])
+            ->post('create', Controllers\UserController\Create::class);
+
+            Route::middleware([
+                Requests\UserValidation\Update::class
+            ])
+            ->post('update', Controllers\UserController\Update::class);
+
+            Route::middleware([
+                Requests\UserValidation\State::class
+            ])
+            ->post('state', Controllers\UserController\State::class);
+
+        });
     // });
 });
