@@ -4,6 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
+
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -12,15 +16,17 @@ return new class extends Migration
      *
      * @return void
      */
-    private $table = 'roles';
+    private $table = 'users';
 
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('nickname')->unique();
+            $table->string('email')->unique();
+            $table->uuid('uuid')->unique();
+            $table->string('password');
             $table->boolean('is_active')->default(1);
-
             $table->timestamp('created_at', $precision = 0)->default(DB::raw('NOW()'));
             $table->timestamp('updated_at', $precision = 0)->nullable();
             $table->timestamp('deleted_at', $precision = 0)->nullable();
@@ -29,13 +35,20 @@ return new class extends Migration
         DB::table($this->table)->insert(
             [
                 [
-                    'name' => 'admin'
+                    'nickname' => 'admin',
+                    'email' => 'admin@mail.com',
+                    'uuid' => (string) Str::uuid(),
+                    'password' => Hash::make('12345678')
                 ],
                 [
-                    'name' => 'kitchen'
-                ],
+                    'nickname' => 'user1',
+                    'email' => 'user1@mail.com',
+                    'uuid' => (string) Str::uuid(),
+                    'password' => Hash::make('12345678')
+                ]
             ]
         );
+
     }
 
     /**

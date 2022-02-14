@@ -6,39 +6,74 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+
+use App\Models\Role;
+
+use App\Services;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
+        'nickname',
         'email',
+        'uuid',
         'password',
+        'is_active',
+        'role_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'created_at' => 'datetime',
     ];
+
+    public static function boot() {
+
+        parent::boot();
+
+        // https://www.nicesnippets.com/blog/laravel-model-created-event-example
+
+        static::created(function($user) {
+
+            $user->token = Services\JWT::GenerateToken($user->uuid, $user->id);
+
+            \Log::info('User Created Event:'.$user);
+        });
+
+        static::creating(function( $user ) {
+            $user->uuid = (string) Str::uuid();
+            $user->password = Hash::make($user->password);
+            // if(!$user->role_id) {
+            //     $user->role_id = Role::where('name', 'user')->first()->id;
+            // }
+
+            \Log::info('User Creating Event:'.$user);
+        });
+	}
+
+    public function generateToken($remember_me = false)
+    {
+        $this->token = Services\JWT::GenerateToken(
+            uuid: $this->uuid,
+            user_id: $this->id,
+            remember_me: $remember_me,
+        );
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+
+
+
 }

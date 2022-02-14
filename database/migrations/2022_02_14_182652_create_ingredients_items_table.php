@@ -12,30 +12,20 @@ return new class extends Migration
      *
      * @return void
      */
-    private $table = 'roles';
-
     public function up()
     {
-        Schema::create($this->table, function (Blueprint $table) {
+        Schema::create('ingredients_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->boolean('is_active')->default(1);
+
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
 
             $table->timestamp('created_at', $precision = 0)->default(DB::raw('NOW()'));
             $table->timestamp('updated_at', $precision = 0)->nullable();
             $table->timestamp('deleted_at', $precision = 0)->nullable();
         });
-
-        DB::table($this->table)->insert(
-            [
-                [
-                    'name' => 'admin'
-                ],
-                [
-                    'name' => 'kitchen'
-                ],
-            ]
-        );
     }
 
     /**
@@ -45,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists($this->table);
+        Schema::dropIfExists('ingredients_items');
     }
 };
