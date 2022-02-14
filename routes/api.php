@@ -36,7 +36,7 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ->get('get_all', Controllers\RoleController\GetAll::class);
 
             Route::middleware([
-                Requests\RoleValidation\FindOne::class,
+                Requests\RoleValidation\Find::class,
             ])
             ->get('find', Controllers\RoleController\Find::class);
 
