@@ -200,6 +200,17 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
         });
 
+        Route::middleware([
+            CanPermission::class.':guest',
+        ])->prefix('kitchen')->group(function () {
+
+            Route::middleware([
+                Requests\ShoppingHistoryValidation\Create::class
+            ])
+            ->post('request', Controllers\ShoppingHistoryController\Create::class);
+
+        });
+
 
 
     });
