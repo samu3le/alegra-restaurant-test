@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('key')->unique();
             $table->boolean('is_active')->default(1);
             $table->integer('stock')->default(5);
+            $table->string('image');
 
             $table->unsignedBigInteger('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');

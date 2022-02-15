@@ -25,8 +25,6 @@ return new class extends Migration
 
             $table->integer('quantity');
 
-            $table->string('image');
-
             $table->boolean('is_active')->default(1);
 
             $table->unsignedBigInteger('created_by')->nullable();
