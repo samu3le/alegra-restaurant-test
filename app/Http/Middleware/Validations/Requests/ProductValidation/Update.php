@@ -4,29 +4,21 @@ namespace App\Http\Middleware\Validations\Requests\ProductValidation;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 
 use App\Http\Middleware\IsBase64;
+use App\Services\Validator;
 use App\Services\Response;
 
 class Update
 {
     public function handle(Request $request, Closure $next)
     {
-        if(isset($request['name'])){
-            $request['name'] = strtolower($request['name']);
-        }
-
-        $lowerCaseToArray = array(
-            'name' => $request['name']
-        );
-        $validate = array_merge($request['body'], $lowerCaseToArray);
-
-        $validator = Validator::make($validate, [
+        $validator = Validator::make($request['body'], [
             'id' => ['required','integer','exists:products,id'],
             'name' => [
                 'string','min:5','max:50',
-                !empty($request->id) ? 'unique:ingredients,name,'.$request->id :null
+                !empty($request->id) ? 'iunique:products,name,'.$request->id :null
             ],
             'is_active' => ['boolean'],
             'image' => [new IsBase64(

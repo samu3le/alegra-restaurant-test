@@ -16,19 +16,8 @@ class Create
 {
     public function handle(Request $request, Closure $next)
     {
-        if(isset($request['email'])){
-            $request['email'] = strtolower($request['email']);
-        }
-        if(isset($request['nickname'])){
-            $request['nickname'] = strtolower($request['nickname']);
-        }
-        $lowerCaseToArray = array(
-            'name' => $request['name'],
-            'nickname' => $request['nickname']
-        );
-        $validate = array_merge($request['body'], $lowerCaseToArray);
 
-        $validator = Validator::make($validate, [
+        $validator = Validator::make($request['body'], [
             'email' => ['required','email','min:6', 'max:50','iunique:users'],
             'nickname' => ['required', 'alpha_num','min:6', 'max:10','iunique:users'],
             'password' => ['required', Password::defaults()],

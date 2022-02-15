@@ -14,19 +14,7 @@ class Update
 {
     public function handle(Request $request, Closure $next)
     {
-        if(isset($request['email'])){
-            $request['email'] = strtolower($request['email']);
-        }
-        if(isset($request['nickname'])){
-            $request['nickname'] = strtolower($request['nickname']);
-        }
-        $lowerCaseToArray = array(
-            'name' => $request['name'],
-            'nickname' => $request['nickname']
-        );
-        $validate = array_merge($request['body'], $lowerCaseToArray);
-
-        $validator = Validator::make($validate, [
+        $validator = Validator::make($request['body'], [
             'id' => ['required', 'integer', 'exists:users,id'],
             'email' => [
                 'email','min:6', 'max:50',
