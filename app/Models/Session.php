@@ -9,7 +9,6 @@ class Session extends Model
 {
     use HasFactory;
 
-
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
@@ -28,6 +27,12 @@ class Session extends Model
     public function isDeleted()
     {
         return $this->deleted_at !== null;
+    }
+
+    public function close()
+    {
+        $this->deleted_at = now();
+        $this->save();
     }
 
     public static function boot() {

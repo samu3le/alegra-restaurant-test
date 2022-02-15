@@ -71,13 +71,4 @@ class User extends Authenticatable
             remember_me: $remember_me,
         );
     }
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
-
-
-
-
 }

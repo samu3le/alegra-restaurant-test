@@ -37,6 +37,12 @@ class Auth
 
         AuthLaravel::loginUsingId($jwt::session()->user_id);
 
+        $jwt->activity();
+
+        $request->merge([
+            'session' => $jwt::session(),
+        ]);
+
         return $next($request);
     }
 }
