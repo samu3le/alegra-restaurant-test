@@ -33,7 +33,7 @@ class Update extends Controller
         }
         $user->save();
 
-        return Response::CREATED(
+        return Response::OK(
             message: 'User updated successfully.',
             data: [
                 'user' => $user,

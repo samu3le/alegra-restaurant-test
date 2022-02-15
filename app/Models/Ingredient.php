@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Support\Facades\Auth;
+
 
 
 use App\Services;
@@ -39,7 +39,7 @@ class Ingredient extends Model
 
         static::creating(function($item) {
             $item->image ? $item->image = self::saveProductImage($item->image) : null ;
-            $item->created_by = config('app.env') === 'testing' ? 1 : 1;//\Auth::id();
+            $item->created_by = config('app.env') === 'testing' ? 1 : \Auth::user()->id;
             \Log::info('Ingredient Creating Event:'.$item);
         });
 

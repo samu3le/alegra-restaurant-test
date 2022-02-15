@@ -37,7 +37,7 @@ class Update extends Controller
         }
         Recipe::insert($recipe_items);
 
-        return Response::CREATED(
+        return Response::OK(
             message: 'Recipe updated successfully.',
             data: [
                 'recipe' => $recipe_items,

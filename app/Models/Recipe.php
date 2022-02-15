@@ -31,12 +31,12 @@ class Recipe extends Model
         parent::boot();
 
         static::created(function($item) {
-            \Log::info('Ingredient Created Event:'.$item);
+            \Log::info('Recipe Created Event:'.$item);
         });
 
         static::creating(function($item) {
             $item->created_by = config('app.env') === 'testing' ? 1 : 1;
-            \Log::info('Ingredient Creating Event:'.$item);
+            \Log::info('Recipe Creating Event:'.$item);
         });
 
 	}
