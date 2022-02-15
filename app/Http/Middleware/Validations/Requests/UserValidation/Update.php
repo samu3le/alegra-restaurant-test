@@ -4,9 +4,10 @@ namespace App\Http\Middleware\Validations\Requests\UserValidation;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
+use App\Services\Validator;
 use App\Services\Response;
 
 class Update
@@ -29,15 +30,17 @@ class Update
             'id' => ['required', 'integer', 'exists:users,id'],
             'email' => [
                 'email','min:6', 'max:50',
-                !empty($request->id) ? 'unique:users,email,'.$request->id :null
+                isset($request->id) ? 'iunique:users,email,'.$request->id :null
             ],
-            // 'nickname' => [
-            //     'alpha_num','min:6', 'max:10',
-            //     !empty($request->id) ? 'unique:users,nickname,'.$request->id :null
-            // ],
+            'nickname' => [
+                'alpha_num',
+                'min:6',
+                'max:10',
+                isset($request->id) ? 'iunique:users,nickname,'.$request->id :null
+            ],
             'password' => [Password::defaults()],
             'passwordConfirmation' => ['same:password', 'required_with:password'],
-            'role_id' => ['integer', 'exists:roles,id'],
+            'role' => ['integer', 'in:1,2,3'],
             'is_active' => ['boolean']
         ]);
 

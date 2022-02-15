@@ -4,10 +4,13 @@ namespace App\Http\Middleware\Validations\Requests\UserValidation;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
+use App\Services\Validator;
 use App\Services\Response;
+
+use App\Models\User;
 
 class Create
 {
@@ -26,12 +29,12 @@ class Create
         $validate = array_merge($request['body'], $lowerCaseToArray);
 
         $validator = Validator::make($validate, [
-            'email' => ['required','email','min:6', 'max:50','unique:users'],
-            'nickname' => ['required', 'alpha_num','min:6', 'max:10','unique:users'],
+            'email' => ['required','email','min:6', 'max:50','iunique:users'],
+            'nickname' => ['required', 'alpha_num','min:6', 'max:10','iunique:users'],
             'password' => ['required', Password::defaults()],
             'passwordConfirmation' => ['required','same:password'],
-            'role_id' => ['required', 'integer', 'exists:roles,id'],
-            'is_active' => ['boolean']
+            'role' => ['integer', 'in:'.implode(",", array_keys(User::ROLES))],
+            'is_active' => ['boolean'],
         ]);
 
         if($validator->fails()){

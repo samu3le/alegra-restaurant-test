@@ -25,25 +25,19 @@ class Update extends Controller
         if(!empty($body['password'])){
             $user->password = $body['password'];
         }
-        if(!empty($body['role_id'])){
-            $user->role_id = $body['role_id'];
+        if(isset($body['role'])) {
+            $user->role = $body['role'];
         }
         if(isset($body['is_active'])){
             $user->is_active = $body['is_active'];
         }
         $user->save();
 
-        $data = [
-            'data' => [
-                'user' => $user,
-            ],
-        ];
-
         return Response::CREATED(
             message: 'User updated successfully.',
             data: [
-                $data,
-            ]
+                'user' => $user,
+            ],
         );
     }
 }

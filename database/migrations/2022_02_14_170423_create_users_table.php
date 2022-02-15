@@ -25,8 +25,10 @@ return new class extends Migration
             $table->string('nickname')->unique();
             $table->string('email')->unique();
             $table->uuid('uuid')->unique();
+            $table->smallInteger('role')->default(3);
             $table->string('password');
             $table->boolean('is_active')->default(1);
+
             $table->timestamp('created_at', $precision = 0)->default(DB::raw('NOW()'));
             $table->timestamp('updated_at', $precision = 0)->nullable();
             $table->timestamp('deleted_at', $precision = 0)->nullable();

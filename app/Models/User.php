@@ -10,8 +10,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
-use App\Models\Role;
-
 use App\Services;
 
 class User extends Authenticatable
@@ -35,9 +33,17 @@ class User extends Authenticatable
         'created_at' => 'datetime',
     ];
 
+    const ROLES = [
+        1 => 'admin',
+        2 => 'kitchen',
+        3 => 'guest',
+    ];
+
     public static function boot() {
 
         parent::boot();
+
+        // https://www.nicesnippets.com/blog/laravel-model-created-event-example
 
         static::created(function($user) {
 
@@ -49,8 +55,8 @@ class User extends Authenticatable
         static::creating(function( $user ) {
             $user->uuid = (string) Str::uuid();
             $user->password = Hash::make($user->password);
-            if(!$user->role_id) {
-                $user->role_id = Role::where('name', 'user')->first()->id;
+            if(!$user->role) {
+                $user->role = 3;
             }
 
             \Log::info('User Creating Event:'.$user);

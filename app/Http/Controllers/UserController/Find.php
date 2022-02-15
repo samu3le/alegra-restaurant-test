@@ -26,9 +26,7 @@ class Find extends Controller
 
         return Response::OK(
             message: 'User found successfully.',
-            data: [
-                $data,
-            ]
+            data: $data,
         );
 
     }

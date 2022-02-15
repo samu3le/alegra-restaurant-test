@@ -19,12 +19,12 @@ class Create extends Controller
         $user->nickname = $body['nickname'];
         $user->email = $body['email'];
         $user->password = $body['password'];
-        $user->role_id = $body['role_id'];
-
+        if(isset($body['role'])) {
+            $user->role = $body['role'];
+        }
         if(isset($body['is_active'])){
             $user->is_active = $body['is_active'];
         }
-
         $user->save();
 
         $data = [
@@ -37,9 +37,7 @@ class Create extends Controller
 
         return Response::CREATED(
             message: 'User created successfully.',
-            data: [
-                $data,
-            ]
+            data: $data,
         );
 
     }
