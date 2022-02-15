@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Middleware\DataParser;
 use App\Http\Middleware\Auth;
-
+use App\Http\Middleware\CanPermission;
 use App\Http\Middleware\Validations;
 use App\Http\Middleware\Validations\Requests;
 use App\Http\Controllers;
@@ -60,7 +60,9 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
         });
 
-        Route::prefix('ingredients')->group(function () {
+        Route::middleware([
+            CanPermission::class.':guest',
+        ])->prefix('ingredients')->group(function () {
 
             Route::middleware([
                 Validations\Requests\Pagination::class,
@@ -85,7 +87,9 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
         });
 
-        Route::prefix('products')->group(function () {
+        Route::middleware([
+            CanPermission::class.':guest',
+        ])->prefix('products')->group(function () {
 
             Route::middleware([
                 Validations\Requests\Pagination::class,
@@ -110,7 +114,9 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
         });
 
-        Route::prefix('recipes')->group(function () {
+        Route::middleware([
+            CanPermission::class.':guest',
+        ])->prefix('recipes')->group(function () {
 
             Route::middleware([
                 Validations\Requests\Pagination::class,
@@ -135,7 +141,9 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
         });
 
-        Route::prefix('orders')->group(function () {
+        Route::middleware([
+            CanPermission::class.':guest',
+        ])->prefix('orders')->group(function () {
 
             Route::middleware([
                 Validations\Requests\Pagination::class,
@@ -170,7 +178,9 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
         });
 
-        Route::prefix('shopping')->group(function () {
+        Route::middleware([
+            CanPermission::class.':guest',
+        ])->prefix('shopping')->group(function () {
 
             Route::middleware([
                 Validations\Requests\Pagination::class,

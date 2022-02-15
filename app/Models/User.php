@@ -72,4 +72,10 @@ class User extends Authenticatable
             remember_me: $remember_me,
         );
     }
+
+    public function canAccess($role_name)
+    {
+        return !empty(\Auth::user()->role == array_search($role_name, self::ROLES)) ? true : false;
+    }
+
 }

@@ -10,6 +10,8 @@ use Illuminate\Validation\Rules\Password;
 use App\Services\Validator;
 use App\Services\Response;
 
+use App\Models\User;
+
 class Update
 {
     public function handle(Request $request, Closure $next)
@@ -28,7 +30,7 @@ class Update
             ],
             'password' => [Password::defaults()],
             'passwordConfirmation' => ['same:password', 'required_with:password'],
-            'role' => ['integer', 'in:1,2,3'],
+            'role' => ['integer', 'in:'.implode(",", array_keys(User::ROLES))],
             'is_active' => ['boolean']
         ]);
 
