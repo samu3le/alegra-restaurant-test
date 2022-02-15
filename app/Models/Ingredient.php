@@ -20,6 +20,7 @@ class Ingredient extends Model
         'name',
         'key',
         'is_active',
+        'stock',
         'created_by'
     ];
 

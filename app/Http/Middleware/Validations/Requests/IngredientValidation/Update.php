@@ -34,6 +34,7 @@ class Update
                 'required_with:name', 'string','min:2', 'max:25',
                 !empty($request->id) ? 'unique:ingredients,key,'.$request->id :null
             ],
+            'stock' => ['integer', 'min:5'],
             'is_active' => ['boolean']
         ]);
 

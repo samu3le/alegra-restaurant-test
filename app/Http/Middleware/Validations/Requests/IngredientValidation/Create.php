@@ -27,6 +27,7 @@ class Create
         $validator = Validator::make($validate, [
             'name' => ['required','string','min:2', 'max:25','unique:ingredients'],
             'key' => ['required', 'string','min:2', 'max:25','unique:ingredients'],
+            'stock' => ['integer', 'min:5'],
             'is_active' => ['boolean']
         ]);
 

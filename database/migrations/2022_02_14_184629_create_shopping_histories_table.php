@@ -17,8 +17,8 @@ return new class extends Migration
         Schema::create('shopping_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('inventory_id');
-            $table->foreign('inventory_id')->references('id')->on('inventories');
+            $table->unsignedBigInteger('ingredient_id');
+            $table->foreign('ingredient_id')->references('id')->on('ingredients');
 
             $table->integer('quantity');
 
