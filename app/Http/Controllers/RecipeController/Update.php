@@ -16,7 +16,7 @@ class Update extends Controller
         $body = $request['body'];
         $recipe_model = new Recipe();
         $product_id = $body['product_id'];
-        // $user_auth = Auth::user()->id;
+        $user_auth = \Auth::user()->id;
 
         $get_ingredients = Recipe::where('product_id', $product_id)
         ->get();
@@ -32,7 +32,7 @@ class Update extends Controller
                 'product_id' => $product_id,
                 'ingredient_id' => $ingredient,
                 'quantity' => $body['quantities'][$key],
-                'created_by' => 1//$user_auth
+                'created_by' => $user_auth
             ];
         }
         Recipe::insert($recipe_items);
