@@ -106,26 +106,72 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
             Route::middleware([
                 Validations\Requests\Pagination::class,
-                Requests\ProductValidation\GetAll::class
+                Requests\RecipeValidation\GetAll::class
             ])
-            ->get('get_all',  Controllers\ProductController\GetAll::class);
+            ->get('get_all',  Controllers\RecipeController\GetAll::class);
 
             Route::middleware([
-                Requests\ProductValidation\Find::class
+                Requests\RecipeValidation\Find::class
             ])
-            ->get('find',  Controllers\ProductController\Find::class);
+            ->get('find',  Controllers\RecipeController\Find::class);
 
             Route::middleware([
-                Requests\ProductValidation\Create::class
+                Requests\RecipeValidation\Create::class
             ])
-            ->post('create', Controllers\ProductController\Create::class);
+            ->post('create', Controllers\RecipeController\Create::class);
 
             Route::middleware([
-                Requests\ProductValidation\Update::class
+                Requests\RecipeValidation\Update::class
             ])
-            ->post('update', Controllers\ProductController\Update::class);
+            ->post('update', Controllers\RecipeController\Update::class);
 
         });
+
+        Route::prefix('orders')->group(function () {
+
+            Route::middleware([
+                Validations\Requests\Pagination::class,
+                Requests\OrderValidation\GetAll::class
+            ])
+            ->get('get_all',  Controllers\OrderController\GetAll::class);
+
+            Route::middleware([
+                Requests\OrderValidation\Find::class
+            ])
+            ->get('find',  Controllers\OrderController\Find::class);
+
+            Route::middleware([
+                Requests\OrderValidation\Create::class
+            ])
+            ->post('create', Controllers\OrderController\Create::class);
+
+            Route::middleware([
+                Requests\OrderValidation\Update::class
+            ])
+            ->post('update', Controllers\OrderController\Update::class);
+
+        });
+
+        Route::prefix('shopping')->group(function () {
+
+            Route::middleware([
+                Validations\Requests\Pagination::class,
+                Requests\ShoppingHistoryValidation\GetAll::class
+            ])
+            ->get('get_all',  Controllers\ShoppingHistoryController\GetAll::class);
+
+            Route::middleware([
+                Requests\ShoppingHistoryValidation\Find::class
+            ])
+            ->get('find',  Controllers\ShoppingHistoryController\Find::class);
+
+            Route::middleware([
+                Requests\ShoppingHistoryValidation\Create::class
+            ])
+            ->post('create', Controllers\ShoppingHistoryController\Create::class);
+
+        });
+
 
     // });
 });
