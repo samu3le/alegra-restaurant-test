@@ -10,22 +10,30 @@ use App\Http\Middleware\Validations;
 use App\Http\Middleware\Validations\Requests;
 use App\Http\Controllers;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
-    // Route::middleware([
-    //     Auth::class,
-    // ])->group(function () {
+    Route::prefix('auth')->group(function () {
+
+        Route::middleware([
+            Requests\AuthValidation\SignUp::class,
+        ])
+        ->post('sign_up', Controllers\AuthController\SignUp::class);
+
+        Route::middleware([
+            Requests\AuthValidation\SignIn::class,
+        ])
+        ->post('sign_in', Controllers\AuthController\SignIn::class);
+
+        Route::middleware([
+            Auth::class,
+        ])
+        ->post('sign_out', Controllers\AuthController\SignOut::class);
+
+    });
+
+    Route::middleware([
+        Auth::class,
+    ])->group(function () {
 
         Route::prefix('users')->group(function () {
 
@@ -173,5 +181,5 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
         });
 
 
-    // });
+    });
 });

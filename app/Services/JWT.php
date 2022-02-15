@@ -99,7 +99,7 @@ class JWT
 
         $session = self::$session;
 
-        if($session->expired_at < date('Y-m-d H:i:s')){
+        if($session->expired_at < now()){
             self::DestroyTokens($session->user_id);
             self::$errors = ['Token expired'];
             return;
@@ -136,7 +136,7 @@ class JWT
             'user_id' => $user_id,
         ])
         ->update([
-            'delete_at' => date('Y-m-d H:i:s'),
+            'deleted_at' => now(),
         ]);
     }
 
@@ -159,5 +159,12 @@ class JWT
     ) : Session
     {
         return self::$session;
+    }
+
+    public function activity() : void
+    {
+        $session = self::session();
+        $session->last_activity = now();
+        $session->save();
     }
 }
