@@ -31,7 +31,7 @@ class Update
                 !empty($request->id) ? 'unique:ingredients,name,'.$request->id :null
             ],
             'key' => [
-                'required_with:name', 'string','min:2', 'max:25',
+                'string','min:2', 'max:25',
                 !empty($request->id) ? 'unique:ingredients,key,'.$request->id :null
             ],
             'stock' => ['integer', 'min:5'],
