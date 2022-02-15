@@ -4,8 +4,8 @@ namespace App\Http\Middleware\Validations\Requests\ProductValidation;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-
+// use Illuminate\Support\Facades\Validator;
+use App\Services\Validator;
 use App\Services\Response;
 
 class Find

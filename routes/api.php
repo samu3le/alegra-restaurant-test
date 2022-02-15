@@ -31,9 +31,9 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
     });
 
-    Route::middleware([
-        Auth::class,
-    ])->group(function () {
+    // Route::middleware([
+    //     Auth::class,
+    // ])->group(function () {
 
         Route::prefix('users')->group(function () {
 
@@ -181,5 +181,5 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
         });
 
 
-    });
+    // });
 });

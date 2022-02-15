@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('stock')->default(5);
             $table->string('image')->nullable();
 
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
 
             $table->timestamp('created_at', $precision = 0)->default(DB::raw('NOW()'));
