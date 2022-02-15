@@ -20,6 +20,9 @@ class Create extends Controller
         if(isset($body['is_active'])){
             $product->is_active = $body['is_active'];
         }
+        if(isset($body['image'])){
+            $product->image = $body['image'];
+        }
 
         $product->save();
 

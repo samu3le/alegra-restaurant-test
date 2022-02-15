@@ -26,8 +26,6 @@ class Role extends Model
 
         parent::boot();
 
-        // https://www.nicesnippets.com/blog/laravel-model-created-event-example
-
         static::created(function($item) {
             \Log::info('Role Created Event:'.$item);
         });

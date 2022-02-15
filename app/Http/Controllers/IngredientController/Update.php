@@ -26,6 +26,11 @@ class Update extends Controller
         if(isset($body['is_active'])) {
             $ingredient->is_active = $body['is_active'];
         }
+        if(isset($body['image'])){
+            $ingredientModel = new Ingredient();
+            $ingredientModel->deleteFile($ingredient->image);
+            $ingredient->image = $body['image'];
+        }
 
         $ingredient->save();
 

@@ -23,6 +23,11 @@ class Update extends Controller
         if(isset($body['is_active'])){
             $product->is_active = $body['is_active'];
         }
+        if(isset($body['image'])){
+            $productModel = new Product();
+            $productModel->deleteFile($product->image);
+            $product->image = $body['image'];
+        }
         $product->save();
 
         return Response::OK(

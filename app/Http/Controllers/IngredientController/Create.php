@@ -25,6 +25,9 @@ class Create extends Controller
         if(isset($body['stock'])) {
             $ingredient->stock = $body['stock'];
         }
+        if(isset($body['image'])){
+            $ingredient->image = $body['image'];
+        }
 
         $ingredient->save();
 

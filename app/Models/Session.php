@@ -34,8 +34,6 @@ class Session extends Model
 
         parent::boot();
 
-        // https://www.nicesnippets.com/blog/laravel-model-created-event-example
-
         static::creating(function($item) {
             $item->ip_address = session('ipAddress', '');
             $item->user_agent = session('userAgent', '');

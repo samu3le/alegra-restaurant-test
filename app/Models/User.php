@@ -39,8 +39,6 @@ class User extends Authenticatable
 
         parent::boot();
 
-        // https://www.nicesnippets.com/blog/laravel-model-created-event-example
-
         static::created(function($user) {
 
             $user->token = Services\JWT::GenerateToken($user->uuid, $user->id);

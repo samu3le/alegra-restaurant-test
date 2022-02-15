@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Services;
+
 class Ingredient extends Model
 {
-    use HasFactory;
+    use HasFactory,Services\Storage;
 
     public static $env;
 
@@ -21,6 +23,7 @@ class Ingredient extends Model
         'key',
         'is_active',
         'stock',
+        'image',
         'created_by'
     ];
 
@@ -28,13 +31,12 @@ class Ingredient extends Model
 
         parent::boot();
 
-        // https://www.nicesnippets.com/blog/laravel-model-created-event-example
-
         static::created(function($item) {
             \Log::info('Ingredient Created Event:'.$item);
         });
 
         static::creating(function($item) {
+            $item->image = self::saveIngredientImage($item->image);
             $item->created_by = config('app.env') === 'testing' ? 1 :  1;//\Auth::user()->id;
             \Log::info('Ingredient Creating Event:'.$item);
         });
