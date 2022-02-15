@@ -34,9 +34,10 @@ class User extends Authenticatable
     ];
 
     const ROLES = [
-        1 => 'admin',
+        1 => 'manager',
         2 => 'kitchen',
-        3 => 'guest',
+        3 => 'warehouse',
+        4 => 'guest',
     ];
 
     public static function boot() {

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('nickname')->unique();
             $table->string('email')->unique();
             $table->uuid('uuid')->unique();
-            $table->smallInteger('role')->default(3);
+            $table->smallInteger('role')->default(4);
             $table->string('password');
             $table->boolean('is_active')->default(1);
 
