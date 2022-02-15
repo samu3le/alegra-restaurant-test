@@ -31,10 +31,10 @@ class Update
                 'email','min:6', 'max:50',
                 !empty($request->id) ? 'unique:users,email,'.$request->id :null
             ],
-            'nickname' => [
-                'alpha_num','min:6', 'max:10',
-                !empty($request->id) ? 'unique:users,nickname,'.$request->id :null
-            ],
+            // 'nickname' => [
+            //     'alpha_num','min:6', 'max:10',
+            //     !empty($request->id) ? 'unique:users,nickname,'.$request->id :null
+            // ],
             'password' => [Password::defaults()],
             'passwordConfirmation' => ['same:password', 'required_with:password'],
             'role_id' => ['integer', 'exists:roles,id'],

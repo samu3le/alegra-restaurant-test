@@ -81,5 +81,36 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ->post('state', Controllers\UserController\State::class);
 
         });
+
+        Route::prefix('ingredients')->group(function () {
+
+            Route::middleware([
+                Validations\Requests\Pagination::class,
+                Requests\IngredientValidation\GetAll::class
+            ])
+            ->get('get_all',  Controllers\IngredientController\GetAll::class);
+
+            Route::middleware([
+                Requests\IngredientValidation\Find::class
+            ])
+            ->get('find',  Controllers\IngredientController\Find::class);
+
+            Route::middleware([
+                Requests\IngredientValidation\Create::class
+            ])
+            ->post('create', Controllers\IngredientController\Create::class);
+
+            Route::middleware([
+                Requests\IngredientValidation\Update::class
+            ])
+            ->post('update', Controllers\IngredientController\Update::class);
+
+            Route::middleware([
+                Requests\IngredientValidation\State::class
+            ])
+            ->post('state', Controllers\IngredientController\State::class);
+
+        });
+
     // });
 });
