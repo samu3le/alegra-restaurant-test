@@ -22,6 +22,9 @@ class Create extends Controller
         if(isset($body['is_active'])){
             $ingredient->is_active = $body['is_active'];
         }
+        if(isset($body['stock'])) {
+            $ingredient->stock = $body['stock'];
+        }
 
         $ingredient->save();
 

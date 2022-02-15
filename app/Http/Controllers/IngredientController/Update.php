@@ -20,6 +20,9 @@ class Update extends Controller
         if(isset($body['name'])) {
             $ingredient->name = $body['name'];
         }
+        if(isset($body['stock'])) {
+            $ingredient->stock = $body['stock'];
+        }
         if(isset($body['is_active'])) {
             $ingredient->is_active = $body['is_active'];
         }
