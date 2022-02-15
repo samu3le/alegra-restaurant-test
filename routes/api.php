@@ -158,6 +158,16 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ])
             ->post('update', Controllers\OrderController\Update::class);
 
+            Route::middleware([
+                Requests\OrderValidation\Update::class
+            ])
+            ->post('update', Controllers\OrderController\Update::class);
+
+            //detail list COcina genera platos aleatorio
+            //Can Permiso
+
+
+
         });
 
         Route::prefix('shopping')->group(function () {
@@ -179,6 +189,7 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ->post('create', Controllers\ShoppingHistoryController\Create::class);
 
         });
+
 
 
     });
