@@ -8,4 +8,44 @@ use Illuminate\Database\Eloquent\Model;
 class OrderDetails extends Model
 {
     use HasFactory;
+
+    protected $table = 'orders_details';
+
+    public static $env;
+
+    public function __construct($attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
+    protected $fillable = [
+        'id',
+        'product_id',
+        'order_id',
+        'state',
+    ];
+
+    const STATE = [
+        1 => 'requested',
+        2 => 'rejected',
+        3 => 'dispatched',
+    ];
+
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($item) {
+            \Log::info('Order details Created Event:'.$item);
+        });
+
+        static::creating(function($item) {
+            \Log::info('Order details Creating Event:'.$item);
+        });
+
+	}
+
+    public function getFillable() {
+        return $this->fillable;
+    }
 }
