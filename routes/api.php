@@ -27,31 +27,6 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
     //     Auth::class,
     // ])->group(function () {
 
-        Route::prefix('roles')->group(function () {
-
-            Route::middleware([
-                Validations\Requests\Pagination::class,
-                Requests\RoleValidation\GetAll::class,
-            ])
-            ->get('get_all', Controllers\RoleController\GetAll::class);
-
-            Route::middleware([
-                Requests\RoleValidation\Find::class,
-            ])
-            ->get('find', Controllers\RoleController\Find::class);
-
-            Route::middleware([
-                Requests\RoleValidation\Create::class,
-            ])
-            ->post('create', Controllers\RoleController\Create::class);
-
-            Route::middleware([
-                Requests\RoleValidation\Update::class,
-            ])
-            ->post('update', Controllers\RoleController\Update::class);
-
-        });
-
         Route::prefix('users')->group(function () {
 
             Route::middleware([
@@ -74,11 +49,6 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
                 Requests\UserValidation\Update::class
             ])
             ->post('update', Controllers\UserController\Update::class);
-
-            Route::middleware([
-                Requests\UserValidation\State::class
-            ])
-            ->post('state', Controllers\UserController\State::class);
 
         });
 
@@ -105,10 +75,30 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ])
             ->post('update', Controllers\IngredientController\Update::class);
 
+        });
+
+        Route::prefix('products')->group(function () {
+
             Route::middleware([
-                Requests\IngredientValidation\State::class
+                Validations\Requests\Pagination::class,
+                Requests\ProductValidation\GetAll::class
             ])
-            ->post('state', Controllers\IngredientController\State::class);
+            ->get('get_all',  Controllers\ProductController\GetAll::class);
+
+            Route::middleware([
+                Requests\ProductValidation\Find::class
+            ])
+            ->get('find',  Controllers\ProductController\Find::class);
+
+            Route::middleware([
+                Requests\ProductValidation\Create::class
+            ])
+            ->post('create', Controllers\ProductController\Create::class);
+
+            Route::middleware([
+                Requests\ProductValidation\Update::class
+            ])
+            ->post('update', Controllers\ProductController\Update::class);
 
         });
 
