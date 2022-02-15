@@ -35,7 +35,7 @@ class Product extends Model
 
         static::creating(function($item) {
             $item->image ? $item->image = self::saveProductImage($item->image) : null ;
-            $item->created_by = config('app.env') === 'testing' ? 1 : 1;//\Auth::user()->id;
+            $item->created_by = config('app.env') === 'testing' ? 1 : \Auth::user()->id;
             \Log::info('Product Creating Event:'.$item);
         });
 
