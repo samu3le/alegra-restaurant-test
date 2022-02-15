@@ -163,10 +163,10 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ])
             ->post('update', Controllers\OrderController\Update::class);
 
-            //detail list COcina genera platos aleatorio
-            //Can Permiso
-
-
+            Route::middleware([
+                Requests\OrderValidation\DeetList::class
+            ])
+            ->post('deet_list', Controllers\OrderController\DeetList::class);
 
         });
 
