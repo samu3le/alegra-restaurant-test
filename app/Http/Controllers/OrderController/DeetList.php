@@ -50,8 +50,20 @@ class DeetList extends Controller
 
         OrderDetails::insert($data_insert);
 
-        $order->details->each(function($item) {
-            $item->product->ingredients;
+        $order->details->each(function($detail) {
+            $detail->product->ingredients;
+            foreach ($detail->product->ingredients as $ingredient) {
+                if($ingredient->stock >= $detail->quantity){
+                    $ingredient->stock -= $detail->quantity;
+                    $ingredient->save();
+
+                    $detail->state = 2;
+                    $detail->save();
+                }else{
+                    $detail->state = 1;
+                    $detail->save();
+                }
+            }
         });
 
         $ingredients = Ingredient::where('is_active', 'true')
@@ -75,7 +87,6 @@ class DeetList extends Controller
         return Response::CREATED(
             message: 'Order Details created successfully.',
             data: [
-                'ingredients' => $ingredients,
                 'order' => $order,
             ]
         );

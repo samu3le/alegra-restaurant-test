@@ -28,8 +28,7 @@ class OrderDetails extends Model
 
     const STATE = [
         1 => 'requested',
-        2 => 'rejected',
-        3 => 'dispatched',
+        2 => 'dispatched',
     ];
 
     public static function boot() {
