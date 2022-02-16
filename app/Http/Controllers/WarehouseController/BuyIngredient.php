@@ -22,6 +22,9 @@ class BuyIngredient extends Controller
 
         $market_quantity_sold = Market::Buy($ingredient->key);
 
+        // $market_quantity_sold['quantitySold'] Add errror
+
+
         $shopping_history = new ShoppingHistory;
 
         $shopping_history->ingredient_id = $ingredient->id;

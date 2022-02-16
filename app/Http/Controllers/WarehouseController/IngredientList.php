@@ -40,8 +40,10 @@ class IngredientList extends Controller
                     $ingredients['data'][$key]['requested_quantity'] += $order_details['quantity'] * $quantity_recipe;
                 }
             }
-            // $ingredients[$key]['requested_quantity'] = $ingredients[$key]['requested_quantity'] - $ingredient['stock'];
+            $result = $ingredients['data'][$key]['requested_quantity'] - $ingredient['stock'];
+            $no_stock = ($result < 0 ? false : true);
             unset($ingredients['data'][$key]['products']);
+            $ingredients['data'][$key]['no_stock'] = $no_stock;
         }
 
         return Response::OK(

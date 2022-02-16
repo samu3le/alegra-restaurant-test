@@ -26,7 +26,8 @@ class Order extends Model
     const STATE = [
         1 => 'requested',
         2 => 'rejected',
-        3 => 'dispatched',
+        3 => 'preparing',
+        4 => 'dispatched',
     ];
 
     public static function boot() {

@@ -200,6 +200,12 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ])
             ->post('deet_list', Controllers\KitchenController\DeetList::class);
 
+            Route::middleware([
+                // Requests\KitchenValidation\OrderList::class
+            ])
+            ->get('order_list', Controllers\KitchenController\OrderList::class);
+
+
         });
 
     });
