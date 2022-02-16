@@ -23,6 +23,7 @@ class OrderDetails extends Model
         'product_id',
         'order_id',
         'state',
+        'quantity',
     ];
 
     const STATE = [

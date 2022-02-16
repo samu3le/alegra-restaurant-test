@@ -20,6 +20,8 @@ class Ingredient extends Model
         parent::__construct($attributes);
     }
 
+    public int $requested_quantity = 0;
+
     protected $fillable = [
         'name',
         'key',
@@ -47,5 +49,17 @@ class Ingredient extends Model
 
     public function getFillable() {
         return $this->fillable;
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'recipes', 'ingredient_id', 'product_id')
+            ->withPivot(
+                'id',
+                'product_id',
+                'ingredient_id',
+                'quantity',
+                'created_by',
+            );
     }
 }

@@ -22,6 +22,8 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
 
+            $table->integer('quantity');
+            
             $table->smallInteger('state')->default(1);
 
             $table->timestamp('created_at', $precision = 0)->default(DB::raw('NOW()'));

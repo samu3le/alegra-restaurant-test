@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Services\Response;
+use App\Services\Market;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
+use App\Models\Ingredient;
 
 class DeetList extends Controller
 {
@@ -25,14 +27,26 @@ class DeetList extends Controller
 
         OrderDetails::where('order_id', $order->id)->delete();
 
+        $products = [];
+        foreach (range(0, $order->quantity - 1) as $key => $number) {
+            $id = $random[array_rand($random, 1)];
+            if(isset($products[$id])) {
+                $products[$id]++;
+            }else {
+                $products[$id] = 1;
+            }
+        }
+
         $data_insert = [];
-        $count = 12;
-        foreach (range(0, $count - 1) as $key => $number) {
+        foreach ($products as $key => $value) {
             $data_insert[] = [
                 'order_id' => $order->id,
-                'product_id' => $random[array_rand($random, 1)],
+                'product_id' => $key,
+                'quantity' => $value,
             ];
         }
+
+        // $market_quantity_sold = Market::Buy('potato');
 
         OrderDetails::insert($data_insert);
 
@@ -40,9 +54,28 @@ class DeetList extends Controller
             $item->product->ingredients;
         });
 
+        $ingredients = Ingredient::where('is_active', 'true')
+            ->with(['products.orders_details' => function ($query) {
+                $query->where('orders_details.state', 1);
+            }])
+            ->get()->toArray();
+        
+        foreach ($ingredients as $key => $ingredient) {
+            $ingredients[$key]['requested_quantity'] = 0;
+            foreach ($ingredient['products'] as $key_product => $product) {
+                $quantity_recipe = $product['pivot']['quantity'];
+                foreach ($product['orders_details'] as $key_order_details => $order_details) {
+                    $ingredients[$key]['requested_quantity'] += $order_details['quantity'] * $quantity_recipe;
+                }
+            }
+            $ingredients[$key]['requested_quantity'] = $ingredients[$key]['requested_quantity'] - $ingredient['stock'];
+            unset($ingredients[$key]['products']);
+        }
+
         return Response::CREATED(
             message: 'Order Details created successfully.',
             data: [
+                'ingredients' => $ingredients,
                 'order' => $order,
             ]
         );

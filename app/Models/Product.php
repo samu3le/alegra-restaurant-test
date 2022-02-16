@@ -50,4 +50,9 @@ class Product extends Model
         return $this->fillable;
     }
 
+    public function orders_details()
+    {
+        return $this->hasMany(OrderDetails::class, 'product_id', 'id');
+    }
+
 }
