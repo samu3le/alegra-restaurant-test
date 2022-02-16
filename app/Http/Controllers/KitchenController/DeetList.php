@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\OrderController;
+namespace App\Http\Controllers\KitchenController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class DeetList extends Controller
         $body = $request['body'];
         $order = Order::find($body['id']);
 
-        if(!$order->state != 1){
+        if($order->state != 1){
             return Response::UNPROCESSABLE_ENTITY(
                 message: 'Validation failed.',
                 errors: 'The order has already been processed.',

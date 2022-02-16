@@ -14,8 +14,6 @@ class FindShopping extends Controller
     public function __invoke(Request $request)
     {
         $query = $request['query'];
-        $page = $query['page'];
-        $per_page = $query['per_page'];
 
         $ingredient = Ingredient::where('id', $query['id']);
         $ingredient = $ingredient->with('shopping')->get();

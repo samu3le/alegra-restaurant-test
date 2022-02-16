@@ -168,16 +168,6 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ])
             ->post('update', Controllers\OrderController\Update::class);
 
-            Route::middleware([
-                Requests\OrderValidation\Update::class
-            ])
-            ->post('update', Controllers\OrderController\Update::class);
-
-            Route::middleware([
-                Requests\OrderValidation\DeetList::class
-            ])
-            ->post('deet_list', Controllers\OrderController\DeetList::class);
-
         });
 
         Route::middleware([
@@ -195,13 +185,22 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ->post('buy', Controllers\WarehouseController\BuyIngredient::class);
 
             Route::middleware([
-                Validations\Requests\Pagination::class,
                 Requests\WarehouseValidation\FindShopping::class
             ])
             ->get('shopping_list', Controllers\WarehouseController\FindShopping::class);
 
         });
 
+        Route::middleware([
+            CanPermission::class.':guest',
+        ])->prefix('kitchen')->group(function () {
+
+            Route::middleware([
+                Requests\KitchenValidation\DeetList::class
+            ])
+            ->post('deet_list', Controllers\KitchenController\DeetList::class);
+
+        });
 
     });
 });

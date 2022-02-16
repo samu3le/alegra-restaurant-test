@@ -27,18 +27,9 @@ class FindShopping
             );
         }
 
-        $query = $request['query'];
-
-        $query['page'] = $query['page'] ?? 1;
-        $query['per_page'] = $query['per_page'] ?? 10;
-
         $request->merge([
-            'query' => $query,
+            'query' => $validator->validated(),
         ]);
-
-        // $request->merge([
-        //     'query' => $validator->validated(),
-        // ]);
 
         return $next($request);
     }
