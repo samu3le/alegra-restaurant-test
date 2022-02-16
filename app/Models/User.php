@@ -75,7 +75,7 @@ class User extends Authenticatable
 
     public function canAccess($role_name)
     {
-        return !empty(\Auth::user()->role == array_search($role_name, self::ROLES)) ? true : false;
+        return in_array($role_name, self::ROLES);
     }
 
 }

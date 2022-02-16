@@ -202,12 +202,12 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
         Route::middleware([
             CanPermission::class.':guest',
-        ])->prefix('kitchen')->group(function () {
+        ])->prefix('inventory')->group(function () {
 
             Route::middleware([
-                Requests\ShoppingHistoryValidation\Create::class
+                Requests\InventoryValidation\Petition::class
             ])
-            ->post('request', Controllers\ShoppingHistoryController\Create::class);
+            ->post('petition', Controllers\InventoryController\Petition::class);
 
         });
 
