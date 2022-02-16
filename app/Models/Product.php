@@ -38,8 +38,13 @@ class Product extends Model
             $item->created_by = config('app.env') === 'testing' ? 1 : \Auth::user()->id;
             \Log::info('Product Creating Event:'.$item);
         });
-
 	}
+
+    public function ingredients()
+    {
+        return 
+            $this->belongsToMany(Ingredient::class, 'recipes', 'product_id', 'ingredient_id');
+    }
 
     public function getFillable() {
         return $this->fillable;

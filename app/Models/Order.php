@@ -47,4 +47,9 @@ class Order extends Model
     public function getFillable() {
         return $this->fillable;
     }
+
+    public function details()
+    {
+        return $this->hasMany(OrderDetails::class, 'order_id', 'id');
+    }
 }

@@ -48,4 +48,9 @@ class OrderDetails extends Model
     public function getFillable() {
         return $this->fillable;
     }
+
+    public function product()
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 }

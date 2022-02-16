@@ -23,32 +23,27 @@ class DeetList extends Controller
         ->limit($order->quantity) // here is yours limit
         ->pluck('id')->toArray();
 
-        $get_order_details = OrderDetails::where('order_id', $order->id)
-        ->get();
+        OrderDetails::where('order_id', $order->id)->delete();
 
-        foreach($get_order_details as $order_details_dlt){
-            $order_details_dlt->delete();
-        }
-
-        $data_insert=[];
-        for($i=0; $i < $order->quantity; $i++){
-            for ($j=0; $j<sizeof($random); $j++) {
-                if(sizeof($data_insert) == $order->quantity){
-                    break;
-                }
-                $data_insert[] = [
-                    'order_id' => $order->id,
-                    'product_id' => $random[$j]
-                ];
-            }
+        $data_insert = [];
+        $count = 12;
+        foreach (range(0, $count - 1) as $key => $number) {
+            $data_insert[] = [
+                'order_id' => $order->id,
+                'product_id' => $random[array_rand($random, 1)],
+            ];
         }
 
         OrderDetails::insert($data_insert);
 
+        $order->details->each(function($item) {
+            $item->product->ingredients;
+        });
+
         return Response::CREATED(
             message: 'Order Details created successfully.',
             data: [
-                'order_details' => $data_insert,
+                'order' => $order,
             ]
         );
     }
