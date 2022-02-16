@@ -18,34 +18,26 @@ class Update extends Controller
 
         $order = Order::find($body['id']);
 
-        $random = Product::select('id')
-            ->where('is_active','true')
-            ->pluck('id')->toArray();
-
-        if(sizeof($random) != 0){
-
-            if((isset($body['state'])) && ($body['state'] != $order->state)){
-                $order->state = $body['state'];
-            }
-
-            if(isset($body['quantity']) && ($order->state ==1)){
-                $order->quantity = $body['quantity'];
-            }
-
-            $order->save();
-
-            return Response::OK(
-                message: 'Order updated successfully.',
-                data: [
-                    'order' => $order,
-                ]
-            );
-
-        }else{
+        if($order->state == 3){
             return Response::UNPROCESSABLE_ENTITY(
                 message: 'Validation failed.',
-                errors: 'Products is empty',
+                errors: 'Order can`t be updated, State is: dispatched',
             );
         }
+        if(isset($body['state'])){
+            $order->state = $body['state'];
+        }
+        if(isset($body['quantity']) && ($order->state ==1)){
+            $order->quantity = $body['quantity'];
+        }
+
+        $order->save();
+
+        return Response::OK(
+            message: 'Order updated successfully.',
+            data: [
+                'order' => $order,
+            ]
+        );
     }
 }

@@ -9,6 +9,7 @@ use App\Services\Validator;
 use App\Services\Response;
 
 use App\Models\Order;
+use App\Models\Product;
 
 class Update
 {
@@ -23,6 +24,16 @@ class Update
             'state' => ['integer', 'in:'.implode(",", array_keys(Order::STATE))],
         ]);
 
+        $product_query = Product::where('is_active','true')
+        ->whereHas('recipe')
+        ->exists();
+
+        if(!$product_query){
+            return Response::UNPROCESSABLE_ENTITY(
+                message: 'Validation failed.',
+                errors: 'There are no registered products',
+            );
+        }
         if($validator->fails()){
             return Response::UNPROCESSABLE_ENTITY(
                 message: 'Validation failed.',

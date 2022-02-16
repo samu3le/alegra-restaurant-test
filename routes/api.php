@@ -178,40 +178,6 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
         });
 
-        Route::middleware([
-            CanPermission::class.':guest',
-        ])->prefix('shopping')->group(function () {
-
-            Route::middleware([
-                Validations\Requests\Pagination::class,
-                Requests\ShoppingHistoryValidation\GetAll::class
-            ])
-            ->get('get_all',  Controllers\ShoppingHistoryController\GetAll::class);
-
-            Route::middleware([
-                Requests\ShoppingHistoryValidation\Find::class
-            ])
-            ->get('find',  Controllers\ShoppingHistoryController\Find::class);
-
-            Route::middleware([
-                Requests\ShoppingHistoryValidation\Create::class
-            ])
-            ->post('create', Controllers\ShoppingHistoryController\Create::class);
-
-        });
-
-        Route::middleware([
-            CanPermission::class.':guest',
-        ])->prefix('inventory')->group(function () {
-
-            Route::middleware([
-                Requests\InventoryValidation\Petition::class
-            ])
-            ->post('petition', Controllers\InventoryController\Petition::class);
-
-        });
-
-
 
     });
 });

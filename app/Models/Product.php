@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Recipe;
 use App\Services;
 
 class Product extends Model
@@ -42,8 +43,13 @@ class Product extends Model
 
     public function ingredients()
     {
-        return 
+        return
             $this->belongsToMany(Ingredient::class, 'recipes', 'product_id', 'ingredient_id');
+    }
+
+    public function recipe()
+    {
+        return $this->hasMany(Recipe::class, 'product_id', 'id');
     }
 
     public function getFillable() {

@@ -19,8 +19,14 @@ class DeetList extends Controller
         $body = $request['body'];
         $order = Order::find($body['id']);
 
+
+        // $product_query = Product::where('is_active','true')
+        // ->whereHas('recipe')
+        // ->exists();
+
         $random = Product::select('id')
         ->where('is_active','true')
+        ->whereHas('recipe')
         ->inRandomOrder()
         ->limit($order->quantity) // here is yours limit
         ->pluck('id')->toArray();
@@ -71,7 +77,7 @@ class DeetList extends Controller
                 $query->where('orders_details.state', 1);
             }])
             ->get()->toArray();
-        
+
         foreach ($ingredients as $key => $ingredient) {
             $ingredients[$key]['requested_quantity'] = 0;
             foreach ($ingredient['products'] as $key_product => $product) {
