@@ -35,7 +35,9 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
         Auth::class,
     ])->group(function () {
 
-        Route::prefix('users')->group(function () {
+        Route::middleware([
+            CanPermission::class.':guest',
+        ])->prefix('users')->group(function () {
 
             Route::middleware([
                 Validations\Requests\Pagination::class,
@@ -175,6 +177,28 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
                 Requests\OrderValidation\DeetList::class
             ])
             ->post('deet_list', Controllers\OrderController\DeetList::class);
+
+        });
+
+        Route::middleware([
+            CanPermission::class.':guest',
+        ])->prefix('warehouse')->group(function () {
+
+            Route::middleware([
+                Validations\Requests\Pagination::class
+            ])
+            ->get('ingredients_list',  Controllers\WarehouseController\IngredientList::class);
+
+            Route::middleware([
+                Requests\WarehouseValidation\BuyIngredient::class
+            ])
+            ->post('buy', Controllers\WarehouseController\BuyIngredient::class);
+
+            Route::middleware([
+                Validations\Requests\Pagination::class,
+                Requests\WarehouseValidation\FindShopping::class
+            ])
+            ->get('shopping_list', Controllers\WarehouseController\FindShopping::class);
 
         });
 

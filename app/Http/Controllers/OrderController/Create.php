@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Services\Response;
 use App\Models\Order;
-use App\Models\OrderDetails;
-use App\Models\Product;
 
 
 class Create extends Controller

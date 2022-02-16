@@ -6,11 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Services\Response;
-use App\Services\Market;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
-use App\Models\Ingredient;
 
 class DeetList extends Controller
 {
@@ -19,10 +17,12 @@ class DeetList extends Controller
         $body = $request['body'];
         $order = Order::find($body['id']);
 
-
-        // $product_query = Product::where('is_active','true')
-        // ->whereHas('recipe')
-        // ->exists();
+        if(!$order->state != 1){
+            return Response::UNPROCESSABLE_ENTITY(
+                message: 'Validation failed.',
+                errors: 'The order has already been processed.',
+            );
+        }
 
         $random = Product::select('id')
         ->where('is_active','true')
@@ -52,8 +52,6 @@ class DeetList extends Controller
             ];
         }
 
-        // $market_quantity_sold = Market::Buy('potato');
-
         OrderDetails::insert($data_insert);
 
         $order->details->each(function($detail) {
@@ -71,24 +69,6 @@ class DeetList extends Controller
                 }
             }
         });
-
-        $ingredients = Ingredient::where('is_active', 'true')
-            ->with(['products.orders_details' => function ($query) {
-                $query->where('orders_details.state', 1);
-            }])
-            ->get()->toArray();
-
-        foreach ($ingredients as $key => $ingredient) {
-            $ingredients[$key]['requested_quantity'] = 0;
-            foreach ($ingredient['products'] as $key_product => $product) {
-                $quantity_recipe = $product['pivot']['quantity'];
-                foreach ($product['orders_details'] as $key_order_details => $order_details) {
-                    $ingredients[$key]['requested_quantity'] += $order_details['quantity'] * $quantity_recipe;
-                }
-            }
-            $ingredients[$key]['requested_quantity'] = $ingredients[$key]['requested_quantity'] - $ingredient['stock'];
-            unset($ingredients[$key]['products']);
-        }
 
         return Response::CREATED(
             message: 'Order Details created successfully.',

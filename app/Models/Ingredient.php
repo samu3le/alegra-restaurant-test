@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-
 use App\Services;
+
+use App\Models\ShoppingHistory;
 
 class Ingredient extends Model
 {
@@ -62,4 +62,10 @@ class Ingredient extends Model
                 'created_by',
             );
     }
+
+    public function shopping()
+    {
+        return $this->hasMany(ShoppingHistory::class, 'ingredient_id', 'id');
+    }
+
 }

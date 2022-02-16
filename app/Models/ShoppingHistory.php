@@ -34,7 +34,7 @@ class ShoppingHistory extends Model
         });
 
         static::creating(function($item) {
-            $item->created_by = config('app.env') === 'testing' ? 1 : 1;
+            $item->created_by = config('app.env') === 'testing' ? 1 : \Auth::user()->id;
             \Log::info('Shopping History Creating Event:'.$item);
         });
 
