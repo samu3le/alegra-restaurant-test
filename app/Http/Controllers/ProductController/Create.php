@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Services\Response;
 
 use App\Models\Product;
+use App\Models\Recipe;
 
 class Create extends Controller
 {
@@ -25,6 +26,20 @@ class Create extends Controller
         }
 
         $product->save();
+
+        $recipe = [];
+        foreach ($body['ingredients'] as $key => $ingredient) {
+            $recipe[] = [
+                'product_id' => $product->id,
+                'ingredient_id' => $ingredient['id'],
+                'quantity' => $ingredient['quantity'],
+                'created_by' => \Auth::user()->id,
+            ];
+        }
+        Recipe::insert($recipe);
+
+        $product->ingredients;
+        $product->orders_details;
 
         return Response::CREATED(
             message: 'Product created successfully.',

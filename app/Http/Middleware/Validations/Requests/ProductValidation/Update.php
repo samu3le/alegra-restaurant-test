@@ -10,6 +10,12 @@ use App\Http\Middleware\IsBase64;
 use App\Services\Validator;
 use App\Services\Response;
 
+use Illuminate\Validation\Rule;
+
+use App\Http\Middleware\ListContent;
+use App\Http\Middleware\ExistList;
+use App\Http\Middleware\ListNotRepeat;
+
 class Update
 {
     public function handle(Request $request, Closure $next)
@@ -25,6 +31,9 @@ class Update
                 types: ['png','jpg', 'jpeg', 'gif'],
                 size: 2048,
             )],
+            'ingredients' => [
+                'array',
+            ],
         ]);
 
         if($validator->fails()){
@@ -33,8 +42,55 @@ class Update
                 errors: $validator->errors(),
             );
         }
+
+        $body = $validator->validated();
+
+        $ingredients = $validator->validated()['ingredients'] ?? [];
+        if(!empty($ingredients)){
+
+            $ingredients_ids = array_keys($ingredients);
+            $ingredients_quantities = array_values($ingredients);
+
+            $ingredientes_refactored = [];
+            foreach($ingredients_ids as $ingredient_id){
+                $ingredientes_refactored[] = [
+                    'id' => $ingredient_id,
+                    'quantity' => $ingredients[$ingredient_id],
+                ];
+            }
+
+            $to_validate = [
+                'ingredients' => $ingredients_ids,
+                'quantities' => $ingredients_quantities,
+            ];
+
+            $validator_ingredients = Validator::make($to_validate, [
+                'ingredients' => [
+                    'required',
+                    'array',
+                    new ListContent('integer'),
+                    new ExistList('ingredients', 'id'),
+                    new ListNotRepeat(),
+                ],
+                'quantities' => [
+                    'array',
+                    'min:' . count($ingredients_ids),
+                    new ListContent('integer'),
+                ]
+            ]);
+
+            if($validator_ingredients->fails()){
+                return Response::UNPROCESSABLE_ENTITY(
+                    message: 'Validation failed.',
+                    errors: $validator_ingredients->errors(),
+                );
+            }
+
+            $body['ingredients'] = $ingredientes_refactored;
+        }
+
         $request->merge([
-            'body' => $validator->validated(),
+            'body' => $body,
         ]);
 
         return $next($request);

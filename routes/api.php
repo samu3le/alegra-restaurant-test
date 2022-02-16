@@ -118,33 +118,6 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
 
         Route::middleware([
             CanPermission::class.':guest',
-        ])->prefix('recipes')->group(function () {
-
-            Route::middleware([
-                Validations\Requests\Pagination::class,
-                Requests\RecipeValidation\GetAll::class
-            ])
-            ->get('get_all',  Controllers\RecipeController\GetAll::class);
-
-            Route::middleware([
-                Requests\RecipeValidation\Find::class
-            ])
-            ->get('find',  Controllers\RecipeController\Find::class);
-
-            Route::middleware([
-                Requests\RecipeValidation\Create::class
-            ])
-            ->post('create', Controllers\RecipeController\Create::class);
-
-            Route::middleware([
-                Requests\RecipeValidation\Update::class
-            ])
-            ->post('update', Controllers\RecipeController\Update::class);
-
-        });
-
-        Route::middleware([
-            CanPermission::class.':guest',
         ])->prefix('orders')->group(function () {
 
             Route::middleware([

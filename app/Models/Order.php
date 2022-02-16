@@ -25,7 +25,7 @@ class Order extends Model
 
     const STATE = [
         1 => 'requested',
-        2 => 'rejected',
+        2 => 'pending',
         3 => 'dispatched',
     ];
 
