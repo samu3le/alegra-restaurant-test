@@ -16,6 +16,8 @@ class Find extends Controller
         $query = $request['query'];
 
         $product = Product::find($query['id']);
+        $product->ingredients;
+        $product->orders_details;
 
         return Response::OK(
             message: 'Products found successfully.',
