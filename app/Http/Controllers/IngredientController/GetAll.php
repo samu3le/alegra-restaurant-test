@@ -20,7 +20,7 @@ class GetAll extends Controller
 
         $ingredients = new Ingredient();
         if(isset($query['sort_by'])){
-            $ingredients = $ingredients->orderBy($query['sort_by'], $query['sort_direction']);
+            $ingredients = $ingredients->orderBy($query['sort_by'], $query['sort']);
         }
 
         $ingredients = $ingredients->paginate(

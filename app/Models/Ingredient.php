@@ -28,7 +28,8 @@ class Ingredient extends Model
         'is_active',
         'stock',
         'image',
-        'created_by'
+        'created_by',
+        'created_at'
     ];
 
     public static function boot() {
