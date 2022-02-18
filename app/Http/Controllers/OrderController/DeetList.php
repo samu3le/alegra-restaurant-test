@@ -17,7 +17,7 @@ class DeetList extends Controller
         $body = $request['body'];
         $order = Order::find($body['id']);
 
-        if(!$order->state != 1){
+        if($order->state != 1){
             return Response::UNPROCESSABLE_ENTITY(
                 message: 'Validation failed.',
                 errors: 'The order has already been processed.',
@@ -54,29 +54,12 @@ class DeetList extends Controller
 
         OrderDetails::insert($data_insert);
 
-        // $state = 2;
-        // $order_details = [];
-        // $ingredients = [];
-
-        // $order->details->each( function($detail) use ($state, $order_details, $ingredients) {
-        //     $detail->product->ingredients;
-        //     foreach ($detail->product->ingredients as $ingredient) {
-        //         if(! $ingredient->stock >= $detail->quantity){
-        //             // $ingredient->stock -= $detail->quantity;
-        //             // $ingredient->save();
-
-        //             // $detail->state = 2;
-        //             // $detail->save();
-        //         }
-        //         // else{
-        //         //     $detail->state = 1;
-        //         //     $detail->save();
-        //         // }
-        //     }
-        // });
-
         $order->state = 2;
         $order->save();
+
+        $order->details->each( function($detail) {
+            $detail->product->ingredients;
+        });
 
 
         return Response::CREATED(

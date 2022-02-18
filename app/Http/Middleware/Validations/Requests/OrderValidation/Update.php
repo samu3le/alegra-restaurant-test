@@ -25,15 +25,19 @@ class Update
         ]);
 
         $product_query = Product::where('is_active','true')
+        ->where('id',$request['body']['id'])
         ->whereHas('recipe')
         ->exists();
 
         if(!$product_query){
             return Response::UNPROCESSABLE_ENTITY(
                 message: 'Validation failed.',
-                errors: 'There are no registered products',
+                errors: [
+                    'id' => ['There are no registered products']
+                ],
             );
         }
+        
         if($validator->fails()){
             return Response::UNPROCESSABLE_ENTITY(
                 message: 'Validation failed.',
