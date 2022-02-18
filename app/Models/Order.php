@@ -21,6 +21,7 @@ class Order extends Model
         'created_by',
         'quantity',
         'state',
+        'created_at'
     ];
 
     const STATE = [

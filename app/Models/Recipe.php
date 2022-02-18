@@ -24,6 +24,7 @@ class Recipe extends Model
         'ingredient_id',
         'quantity',
         'created_by',
+        'created_at'
     ];
 
     public static function boot() {

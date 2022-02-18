@@ -24,6 +24,7 @@ class OrderDetails extends Model
         'order_id',
         'state',
         'quantity',
+        'created_at'
     ];
 
     const STATE = [

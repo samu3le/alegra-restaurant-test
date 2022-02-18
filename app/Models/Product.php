@@ -23,7 +23,8 @@ class Product extends Model
         'name',
         'is_active',
         'image',
-        'created_by'
+        'created_by',
+        'created_at'
     ];
 
     public static function boot() {

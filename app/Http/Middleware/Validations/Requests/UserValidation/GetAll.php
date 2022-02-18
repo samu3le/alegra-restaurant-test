@@ -18,7 +18,7 @@ class GetAll
 
         $validator = Validator::make($request['query'], [
             'sort_by' => ['nullable', 'string', 'in:' . implode(',', $user->getFillable())],
-            'sort_direction' => ['nullable', 'string', 'in:asc,desc'],
+            'sort' => ['nullable', 'string', 'in:asc,desc'],
         ]);
 
         if($validator->fails()){

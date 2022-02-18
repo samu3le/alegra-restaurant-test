@@ -20,7 +20,7 @@ class GetAll extends Controller
 
         $users = new User();
         if(isset($query['sort_by'])){
-            $users = $users->orderBy($query['sort_by'], $query['sort_direction']);
+            $users = $users->orderBy($query['sort_by'], $query['sort']);
         }
 
         $users = $users->paginate(

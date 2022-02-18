@@ -20,7 +20,7 @@ class GetAll extends Controller
 
         $products = new Product();
         if(isset($query['sort_by'])){
-            $products = $products->orderBy($query['sort_by'], $query['sort_direction']);
+            $products = $products->orderBy($query['sort_by'], $query['sort']);
         }
 
         $products = $products->paginate(
