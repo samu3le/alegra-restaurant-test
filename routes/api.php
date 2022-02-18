@@ -36,7 +36,7 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
     ])->group(function () {
 
         Route::middleware([
-            CanPermission::class.':guest',
+            CanPermission::class.':manager',
         ])->prefix('users')->group(function () {
 
             Route::middleware([
@@ -63,7 +63,7 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
         });
 
         Route::middleware([
-            CanPermission::class.':guest',
+            CanPermission::class.':warehouse',
         ])->prefix('ingredients')->group(function () {
 
             Route::middleware([
@@ -90,7 +90,7 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
         });
 
         Route::middleware([
-            CanPermission::class.':guest',
+            CanPermission::class.':kitchen',
         ])->prefix('products')->group(function () {
 
             Route::middleware([
@@ -117,7 +117,7 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
         });
 
         Route::middleware([
-            CanPermission::class.':guest',
+            CanPermission::class.':kitchen',
         ])->prefix('orders')->group(function () {
 
             Route::middleware([
@@ -141,10 +141,20 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ])
             ->post('update', Controllers\OrderController\Update::class);
 
+            Route::middleware([
+                Requests\OrderValidation\State::class
+            ])
+            ->post('detail_state', Controllers\OrderController\State::class);
+
+            Route::middleware([
+                Requests\OrderValidation\DeetList::class
+            ])
+            ->post('deet_list', Controllers\OrderController\DeetList::class);
+
         });
 
         Route::middleware([
-            CanPermission::class.':guest',
+            CanPermission::class.':warehouse',
         ])->prefix('warehouse')->group(function () {
 
             Route::middleware([

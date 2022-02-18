@@ -44,8 +44,14 @@ class Product extends Model
 
     public function ingredients()
     {
-        return
-            $this->belongsToMany(Ingredient::class, 'recipes', 'product_id', 'ingredient_id');
+        return $this->belongsToMany(Ingredient::class, 'recipes', 'product_id', 'ingredient_id')
+        ->withPivot(
+            'id',
+            'product_id',
+            'ingredient_id',
+            'quantity',
+            'created_by',
+        );
     }
 
     public function recipe()

@@ -28,10 +28,10 @@ class OrderDetails extends Model
     ];
 
     const STATE = [
-        1 => 'created',
-        2 => 'requested',
-        3 => 'preparing',
-        4 => 'prepared',
+        1 => 'created', // cuando fue generado el pedido
+        2 => 'requested', // cuando fue solicitado a bodega
+        3 => 'preparing', // cuando cocina confirma que hay items para preparar
+        4 => 'prepared', // cuando esta listo para ser entregado
     ];
 
     public static function boot() {
