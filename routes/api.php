@@ -92,7 +92,7 @@ Route::prefix('v1')->middleware([
 
 
         Route::middleware([
-            CanPermission::class.':kitchen',
+            CanPermission::class.':manager',
         ])->prefix('orders')->group(function () {
 
             Route::middleware([
