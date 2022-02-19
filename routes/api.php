@@ -90,6 +90,35 @@ Route::prefix('v1')->middleware([
 
         });
 
+
+        Route::middleware([
+            CanPermission::class.':kitchen',
+        ])->prefix('orders')->group(function () {
+
+            Route::middleware([
+                Validations\Requests\Pagination::class,
+                Requests\OrderValidation\GetAll::class
+            ])
+            ->get('get_all',  Controllers\OrderController\GetAll::class);
+
+            Route::middleware([
+                Requests\OrderValidation\Find::class
+            ])
+            ->get('find',  Controllers\OrderController\Find::class);
+
+            Route::middleware([
+                Requests\OrderValidation\Create::class
+            ])
+            ->post('create', Controllers\OrderController\Create::class);
+
+            Route::middleware([
+                Requests\OrderValidation\Update::class
+            ])
+            ->post('update', Controllers\OrderController\Update::class);
+
+        });
+
+
         Route::middleware([
             CanPermission::class.':kitchen',
         ])->prefix('products')->group(function () {
@@ -120,27 +149,6 @@ Route::prefix('v1')->middleware([
         Route::middleware([
             CanPermission::class.':kitchen',
         ])->prefix('orders')->group(function () {
-
-            Route::middleware([
-                Validations\Requests\Pagination::class,
-                Requests\OrderValidation\GetAll::class
-            ])
-            ->get('get_all',  Controllers\OrderController\GetAll::class);
-
-            Route::middleware([
-                Requests\OrderValidation\Find::class
-            ])
-            ->get('find',  Controllers\OrderController\Find::class);
-
-            Route::middleware([
-                Requests\OrderValidation\Create::class
-            ])
-            ->post('create', Controllers\OrderController\Create::class);
-
-            Route::middleware([
-                Requests\OrderValidation\Update::class
-            ])
-            ->post('update', Controllers\OrderController\Update::class);
 
             Route::middleware([
                 Requests\OrderValidation\State::class
