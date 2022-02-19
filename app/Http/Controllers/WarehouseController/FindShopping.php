@@ -16,7 +16,7 @@ class FindShopping extends Controller
         $query = $request['query'];
 
         $shoppings = Ingredient::find($query['id']);
-        $shoppings = $ingredient->shoppings->each(function($shopping){
+        $shoppings = $shoppings->shoppings->each(function($shopping){
             $shopping->owner;
         });
         return Response::OK(
