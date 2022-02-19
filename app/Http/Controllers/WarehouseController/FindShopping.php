@@ -40,10 +40,15 @@ class FindShopping extends Controller
         //     $shopping->owner;
         // });
 
+        $shoppingHistory = [
+            'ingredient' => $ingredient,
+            'shoppings' => $shoppingHistory,
+        ];
+
         return Response::OK(
             message: 'Shopping history found successfully.',
             data: [
-                'ingredient' => $ingredient,
+
                 'shoppings' => $shoppingHistory,
             ]
         );
