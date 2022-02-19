@@ -13,13 +13,14 @@ class GetAll extends Controller
 {
     public function __invoke(Request $request)
     {
+        try {
+
         $query = $request['query'];
 
         $page = $query['page'];
         $per_page = $query['per_page'];
 
-        $orders = new Order();
-        $orders = $orders->created_by();
+        $orders = Order::with('owner');
 
         if(isset($query['sort_by'])){
             $orders = $orders->orderBy($query['sort_by'], $query['sort']);
@@ -37,5 +38,8 @@ class GetAll extends Controller
                 'orders' => $orders,
             ],
         );
+    } catch (\Throwable $th) {
+        print_r($th . "error");
+    }
     }
 }
