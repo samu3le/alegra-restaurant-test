@@ -13,8 +13,6 @@ class GetAll extends Controller
 {
     public function __invoke(Request $request)
     {
-        try {
-
         $query = $request['query'];
 
         $page = $query['page'];
@@ -38,8 +36,5 @@ class GetAll extends Controller
                 'orders' => $orders,
             ],
         );
-    } catch (\Throwable $th) {
-        print_r($th . "error");
-    }
     }
 }
