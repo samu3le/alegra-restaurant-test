@@ -15,14 +15,14 @@ class FindShopping extends Controller
     {
         $query = $request['query'];
 
-        $ingredient = Ingredient::find($query['id']);
-        $ingredient = $ingredient->shoppings->each(function($shopping){
+        $shoppings = Ingredient::find($query['id']);
+        $shoppings = $ingredient->shoppings->each(function($shopping){
             $shopping->owner;
         });
         return Response::OK(
-            message: 'Ingredient found successfully.',
+            message: 'Shopping history found successfully.',
             data: [
-                'ingredient' => $ingredient,
+                'shoppings' => $shoppings,
             ]
         );
     }
