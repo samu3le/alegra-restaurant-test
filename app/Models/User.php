@@ -33,7 +33,7 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
         'role' => RolesOptions::class,
     ];
 
