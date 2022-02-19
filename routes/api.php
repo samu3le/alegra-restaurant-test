@@ -147,7 +147,7 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
             ->post('detail_state', Controllers\OrderController\State::class);
 
             Route::middleware([
-                Requests\OrderValidation\DeetList::class
+                Requests\Validation\DeetList::class
             ])
             ->post('deet_list', Controllers\OrderController\DeetList::class);
 
@@ -179,14 +179,14 @@ Route::prefix('v1')->middleware([DataParser::class])->group(function () {
         ])->prefix('kitchen')->group(function () {
 
             Route::middleware([
-                Requests\KitchenValidation\DeetList::class
+                Requests\OrderValidation\DeetList::class
             ])
-            ->post('deet_list', Controllers\KitchenController\DeetList::class);
+            ->post('deet_list', Controllers\OrderController\DeetList::class);
 
             Route::middleware([
-                // Requests\KitchenValidation\OrderList::class
+                // Requests\OrderValidation\OrderList::class
             ])
-            ->get('order_list', Controllers\KitchenController\OrderList::class);
+            ->get('order_list', Controllers\OrderController\OrderList::class);
 
 
         });

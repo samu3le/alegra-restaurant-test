@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\KitchenController;
+namespace App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

@@ -53,4 +53,10 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetails::class, 'order_id', 'id');
     }
+
+    public function created_by()
+    {
+        return $this->hasOne(User::class, 'created_by', 'id');
+    }
+
 }

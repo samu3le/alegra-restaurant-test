@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\Validations\Requests\KitchenValidation;
+namespace App\Http\Middleware\Validations\Requests\OrderValidation;
 
 use Closure;
 use Illuminate\Http\Request;

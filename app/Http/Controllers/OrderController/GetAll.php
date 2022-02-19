@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Services\Response;
 use App\Models\Order;
+use App\Models\User;
 
 class GetAll extends Controller
 {
@@ -18,6 +19,8 @@ class GetAll extends Controller
         $per_page = $query['per_page'];
 
         $orders = new Order();
+        $orders = $orders->created_by();
+
         if(isset($query['sort_by'])){
             $orders = $orders->orderBy($query['sort_by'], $query['sort']);
         }
