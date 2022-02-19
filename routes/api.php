@@ -10,8 +10,9 @@ use App\Http\Middleware\Validations;
 use App\Http\Middleware\Validations\Requests;
 use App\Http\Controllers;
 
-Route::prefix('v1')->middleware([DataParser::class])->group(function () {
-
+Route::prefix('v1')->middleware([
+    DataParser::class, 
+])->group(function () {
     Route::prefix('auth')->group(function () {
 
         Route::middleware([
