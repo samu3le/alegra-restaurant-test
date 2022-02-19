@@ -18,12 +18,35 @@ class Create
     {
 
         $validator = Validator::make($request['body'], [
-            'email' => ['required','email','min:6', 'max:50','iunique:users'],
-            'nickname' => ['required', 'alpha_num','min:6', 'max:10','iunique:users'],
-            'password' => ['required', Password::defaults()],
-            'passwordConfirmation' => ['required','same:password'],
-            'role' => ['integer', 'in:'.implode(",", array_keys(User::ROLES))],
-            'is_active' => ['boolean'],
+            'email' => [
+                'required',
+                'email',
+                'min:6', 
+                'max:50',
+                'iunique:users',
+            ],
+            'nickname' => [
+                'required', 
+                'alpha_num',
+                'min:6', 
+                'max:50',
+                'iunique:users',
+            ],
+            'password' => [
+                'required', 
+                Password::defaults(),
+            ],
+            'passwordConfirmation' => [
+                'required',
+                'same:password',
+            ],
+            'role' => [
+                'string', 
+                'in:'.implode(",", array_values(User::ROLES)),
+            ],
+            'is_active' => [
+                'boolean',
+            ],
         ]);
 
         if($validator->fails()){

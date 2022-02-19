@@ -17,21 +17,37 @@ class Update
     public function handle(Request $request, Closure $next)
     {
         $validator = Validator::make($request['body'], [
-            'id' => ['required', 'integer', 'exists:users,id'],
+            'id' => [
+                'required', 
+                'integer', 
+                'exists:users',
+            ],
             'email' => [
-                'email','min:6', 'max:50',
-                isset($request->id) ? 'iunique:users,email,'.$request->id :null
+                'email',
+                'min:6', 
+                'max:50',
+                isset($request->id) ? 'iunique:users,email,'.$request->id :null,
             ],
             'nickname' => [
                 'alpha_num',
-                'min:6',
-                'max:10',
-                isset($request->id) ? 'iunique:users,nickname,'.$request->id :null
+                'min:6', 
+                'max:50',
+                isset($request->id) ? 'iunique:users,nickname,'.$request->id :null,
             ],
-            'password' => [Password::defaults()],
-            'passwordConfirmation' => ['same:password', 'required_with:password'],
-            'role' => ['integer', 'in:'.implode(",", array_keys(User::ROLES))],
-            'is_active' => ['boolean']
+            'password' => [
+                Password::defaults(),
+            ],
+            'passwordConfirmation' => [
+                'same:password', 
+                'required_with:password',
+            ],
+            'role' => [
+                'string', 
+                'in:'.implode(",", array_values(User::ROLES)),
+            ],
+            'is_active' => [
+                'boolean',
+            ]
         ]);
 
         if($validator->fails()){
