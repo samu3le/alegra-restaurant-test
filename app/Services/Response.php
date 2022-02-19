@@ -186,4 +186,12 @@ class Response
         }
         return response()->json($res, self::HTTP_UNPROCESSABLE_ENTITY);
     }
+
+    public static function FORBIDDEN() : JsonResponse
+    {
+        $res = [
+            'message' => 'Forbidden',
+        ];
+        return response()->json($res, self::HTTP_FORBIDDEN);
+    }
 }
