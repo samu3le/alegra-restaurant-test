@@ -45,4 +45,9 @@ class ShoppingHistory extends Model
         return $this->fillable;
     }
 
+    public function owner()
+    {
+        return $this->hasOne(User::class,'id','created_by');
+    }
+
 }

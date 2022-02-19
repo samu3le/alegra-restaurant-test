@@ -69,4 +69,9 @@ class Ingredient extends Model
         return $this->hasMany(ShoppingHistory::class, 'ingredient_id', 'id');
     }
 
+    public function owner()
+    {
+        return $this->hasOne(User::class,'id','created_by');
+    }
+
 }

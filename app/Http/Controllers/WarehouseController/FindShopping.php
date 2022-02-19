@@ -16,7 +16,7 @@ class FindShopping extends Controller
         $query = $request['query'];
 
         $ingredient = Ingredient::where('id', $query['id']);
-        $ingredient = $ingredient->with('shopping')->get();
+        $ingredient = $ingredient->with('shopping')->with('shopping.owner')->get();
 
         return Response::OK(
             message: 'Ingredient found successfully.',
