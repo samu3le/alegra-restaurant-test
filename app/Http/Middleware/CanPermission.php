@@ -12,7 +12,6 @@ use App\Models\User;
 
 class CanPermission
 {
-
     public function handle(Request $request, Closure $next, $permission)
     {
         $user = new User();
