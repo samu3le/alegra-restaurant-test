@@ -10,6 +10,7 @@ return [
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => [
+        'Content-Type',
         'Accept',
         'Authorization',
         'User-Agent',
