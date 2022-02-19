@@ -64,7 +64,7 @@ class Ingredient extends Model
             );
     }
 
-    public function shopping()
+    public function shoppings()
     {
         return $this->hasMany(ShoppingHistory::class, 'ingredient_id', 'id');
     }

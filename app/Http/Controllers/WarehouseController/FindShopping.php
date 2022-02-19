@@ -15,9 +15,10 @@ class FindShopping extends Controller
     {
         $query = $request['query'];
 
-        $ingredient = Ingredient::where('id', $query['id']);
-        $ingredient = $ingredient->with('shopping')->with('shopping.owner')->get();
-
+        $ingredient = Ingredient::find($query['id']);
+        $ingredient = $ingredient->shoppings->each(function($shopping){
+            $shopping->owner;
+        });
         return Response::OK(
             message: 'Ingredient found successfully.',
             data: [

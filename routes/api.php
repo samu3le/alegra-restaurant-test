@@ -11,7 +11,7 @@ use App\Http\Middleware\Validations\Requests;
 use App\Http\Controllers;
 
 Route::prefix('v1')->middleware([
-    DataParser::class, 
+    DataParser::class,
 ])->group(function () {
     Route::prefix('auth')->group(function () {
 
@@ -169,6 +169,7 @@ Route::prefix('v1')->middleware([
             ->post('buy', Controllers\WarehouseController\BuyIngredient::class);
 
             Route::middleware([
+                Validations\Requests\Pagination::class,
                 Requests\WarehouseValidation\FindShopping::class
             ])
             ->get('shopping_list', Controllers\WarehouseController\FindShopping::class);
