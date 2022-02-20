@@ -26,10 +26,13 @@ class Update
             ],
             'stock' => ['integer', 'min:5'],
             'is_active' => ['boolean'],
-            'image' => [new IsBase64(
-                types: ['png','jpg', 'jpeg', 'gif'],
-                size: 2048,
-            )],
+            'image' => [
+                'string',
+                new IsBase64(
+                    types: ['png','jpg', 'jpeg', 'gif'],
+                    size: 2048,
+                ),
+            ],
         ]);
 
         if($validator->fails()){
