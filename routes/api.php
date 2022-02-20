@@ -194,7 +194,8 @@ Route::prefix('v1')->middleware([
             ->post('deet_list', Controllers\OrderController\DeetList::class);
 
             Route::middleware([
-                // Requests\OrderValidation\OrderList::class
+                Validations\Requests\Pagination::class,
+                Requests\OrderValidation\OrderList::class
             ])
             ->get('order_list', Controllers\OrderController\OrderList::class);
 
