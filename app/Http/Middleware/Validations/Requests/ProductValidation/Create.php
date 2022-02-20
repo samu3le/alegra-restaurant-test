@@ -66,16 +66,30 @@ class Create
                     'required',
                     'array',
                     new ListContent('integer'),
+                ],
+                'quantities' => [
+                    'required',
+                    'array',
+                    'min:' . count($ingredients_ids),
+                    new ListContent('integer'),
+                ],
+            ]);
+            if($validator_ingredients->fails()){
+                return Response::UNPROCESSABLE_ENTITY(
+                    message: 'Validation failed.',
+                    errors: $validator_ingredients->errors(),
+                );
+            }
+
+            $validator_ingredients = Validator::make($to_validated, [
+                'ingredients' => [
                     new ExistList('ingredients', 'id'),
                     new ListNotRepeat(),
                 ],
                 'quantities' => [
-                    'array',
-                    'min:' . count($ingredients_ids),
-                    new ListContent('integer'),
-                ]
+                    'required',
+                ],
             ]);
-
             if($validator_ingredients->fails()){
                 return Response::UNPROCESSABLE_ENTITY(
                     message: 'Validation failed.',

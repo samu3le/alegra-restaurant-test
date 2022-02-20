@@ -45,6 +45,11 @@ class Update
 
         $body = $validator->validated();
 
+        return Response::UNPROCESSABLE_ENTITY(
+            message: 'Validation failed.',
+            errors: [],
+        );
+
         $ingredients = $validator->validated()['ingredients'] ?? [];
         if(!empty($ingredients)){
 
@@ -59,26 +64,40 @@ class Update
                 ];
             }
 
-            $to_validate = [
+            $to_validated = [
                 'ingredients' => $ingredients_ids,
                 'quantities' => $ingredients_quantities,
             ];
 
-            $validator_ingredients = Validator::make($to_validate, [
+            $validator_ingredients = Validator::make($to_validated, [
                 'ingredients' => [
                     'required',
                     'array',
                     new ListContent('integer'),
+                ],
+                'quantities' => [
+                    'required',
+                    'array',
+                    'min:' . count($ingredients_ids),
+                    new ListContent('integer'),
+                ],
+            ]);
+            if($validator_ingredients->fails()){
+                return Response::UNPROCESSABLE_ENTITY(
+                    message: 'Validation failed.',
+                    errors: $validator_ingredients->errors(),
+                );
+            }
+
+            $validator_ingredients = Validator::make($to_validated, [
+                'ingredients' => [
                     new ExistList('ingredients', 'id'),
                     new ListNotRepeat(),
                 ],
                 'quantities' => [
-                    'array',
-                    'min:' . count($ingredients_ids),
-                    new ListContent('integer'),
-                ]
+                    'required',
+                ],
             ]);
-
             if($validator_ingredients->fails()){
                 return Response::UNPROCESSABLE_ENTITY(
                     message: 'Validation failed.',

@@ -23,6 +23,8 @@ class GetAll extends Controller
             $products = $products->orderBy($query['sort_by'], $query['sort']);
         }
 
+        $products->with(['ingredients', 'orders_details']);
+
         $products = $products->paginate(
             $per_page, // per page (may be get it from request)
             ['*'], // columns to select from table (default *, means all fields)
