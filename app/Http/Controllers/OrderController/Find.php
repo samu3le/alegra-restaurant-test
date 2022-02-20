@@ -14,7 +14,9 @@ class Find extends Controller
     {
         $query = $request['query'];
 
-        $order = Order::where('id',$query['id'])->with('details.product')->get();
+        $order = Order::where('id',$query['id'])->with('owner')
+        ->with('details.product')
+        ->first();
 
         return Response::OK(
             message: 'Order found successfully.',
