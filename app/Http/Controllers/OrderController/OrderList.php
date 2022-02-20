@@ -18,6 +18,16 @@ class OrderList extends Controller
 
         $orders_requested = Order::where('state','1')
         ->with('details.product');
+        $orders_pending = Order::where('state','2')
+        ->with('details.product');
+        $orders_dispatched = Order::where('state','3')
+        ->with('details.product');
+        if(isset($query['sort_by'])){
+            $orders_requested = $orders_requested->orderBy($query['sort_by'], $query['sort']);
+            $orders_pending = $orders_pending->orderBy($query['sort_by'], $query['sort']);
+            $orders_dispatched = $orders_dispatched->orderBy($query['sort_by'], $query['sort']);
+        }
+
         $arr_requested = $orders_requested->paginate(
             $per_page, // per page (may be get it from request)
             ['*'], // columns to select from table (default *, means all fields)
@@ -26,8 +36,6 @@ class OrderList extends Controller
         )->toArray();
         $arr_requested['quantity'] = $orders_requested->count();
 
-        $orders_pending = Order::where('state','2')
-        ->with('details.product');
         $arr_pending = $orders_pending->paginate(
             $per_page, // per page (may be get it from request)
             ['*'], // columns to select from table (default *, means all fields)
@@ -36,8 +44,6 @@ class OrderList extends Controller
         )->toArray();
         $arr_pending['quantity'] = $orders_pending->count();
 
-        $orders_dispatched = Order::where('state','3')
-        ->with('details.product');
         $arr_dispatched = $orders_dispatched->paginate(
             $per_page, // per page (may be get it from request)
             ['*'], // columns to select from table (default *, means all fields)
@@ -46,18 +52,10 @@ class OrderList extends Controller
         )->toArray();
         $arr_dispatched['quantity'] = $orders_dispatched->count();
 
-        if(isset($query['sort_by'])){
-
-            $orders_requested = $orders_requested->orderBy($query['sort_by'], $query['sort']);
-            $orders_pending = $orders_pending->orderBy($query['sort_by'], $query['sort']);
-            $orders_dispatched = $orders_dispatched->orderBy($query['sort_by'], $query['sort']);
-
-        }
-
         $arraySearch = [
-           'orders_requested' => $arr_requested['quantity'],
-           'orders_pending' => $arr_pending['quantity'],
-           'orders_dispatched' => $arr_dispatched['quantity']
+            'orders_requested' => $arr_requested['quantity'],
+            'orders_pending' => $arr_pending['quantity'],
+            'orders_dispatched' => $arr_dispatched['quantity']
         ];
 
         $search = array_search(max($arraySearch),$arraySearch);
