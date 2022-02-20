@@ -13,7 +13,7 @@ class ImageUrl implements CastsAttributes
 {
     public function get($model, $key, $value, $attributes)
     {
-        return Storage::disk('public')->url($value);
+        return $value ? Storage::disk('public')->url($value) : null;
     }
     
     public function set($model, $key, $value, $attributes)

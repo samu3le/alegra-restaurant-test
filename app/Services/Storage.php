@@ -11,8 +11,6 @@ trait Storage
     public static function saveProductImage($base64){
         $name_file = time() . bin2hex(random_bytes(10));
 
-        $base64 = str_replace(StorageLaravel::disk('public')->url(''), '', $base64);
-
         $image = self::StringToBase64($base64);
 
         $path = 'product_images/' . $name_file . '.' . $image['ext'];
