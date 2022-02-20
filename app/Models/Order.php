@@ -21,7 +21,15 @@ class Order extends Model
         'created_by',
         'quantity',
         'state',
-        'created_at'
+        'created_at',
+        'updated_at',
+        'delete_at',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'delete_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     const STATE = [

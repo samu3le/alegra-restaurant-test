@@ -31,12 +31,17 @@ class Ingredient extends Model
         'stock',
         'image',
         'created_by',
-        'created_at'
+        'created_at',
+        'updated_at',
+        'delete_at',
     ];
-    
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'delete_at' => 'datetime:Y-m-d H:i:s',
         'image' => ImageUrl::class,
+
     ];
 
     public static function boot() {
