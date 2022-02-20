@@ -78,6 +78,19 @@ class OrderList extends Controller
             $page // current page, default 1
         )->toArray();
 
+        $arr_requested = [
+            'list' => $arr_requested['data'],
+            'quantity' => $arr_requested['quantity'],
+        ];
+        $arr_pending = [
+            'list' => $arr_pending['data'],
+            'quantity' => $arr_pending['quantity'],
+        ];
+        $arr_dispatched = [
+            'list' => $arr_dispatched['data'],
+            'quantity' => $arr_dispatched['quantity'],
+        ];
+
         $paginate_order['data'] = [
             'requested' => $arr_requested,
             'pending' => $arr_pending,
