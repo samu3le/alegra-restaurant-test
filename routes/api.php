@@ -160,6 +160,12 @@ Route::prefix('v1')->middleware([
             ])
             ->post('deet_list', Controllers\OrderController\DeetList::class);
 
+            Route::middleware([
+                Validations\Requests\Pagination::class,
+                Requests\OrderValidation\OrderList::class
+            ])
+            ->get('get_all_states', Controllers\OrderController\OrderList::class);
+
         });
 
         Route::middleware([
@@ -181,24 +187,6 @@ Route::prefix('v1')->middleware([
                 Requests\WarehouseValidation\FindShopping::class
             ])
             ->get('shopping_list', Controllers\WarehouseController\FindShopping::class);
-
-        });
-
-        Route::middleware([
-            CanPermission::class.':guest',
-        ])->prefix('kitchen')->group(function () {
-
-            Route::middleware([
-                Requests\OrderValidation\DeetList::class
-            ])
-            ->post('deet_list', Controllers\OrderController\DeetList::class);
-
-            Route::middleware([
-                Validations\Requests\Pagination::class,
-                Requests\OrderValidation\OrderList::class
-            ])
-            ->get('order_list', Controllers\OrderController\OrderList::class);
-
 
         });
 
