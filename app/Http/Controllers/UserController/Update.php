@@ -9,6 +9,21 @@ use App\Services\Response;
 
 use App\Models\User;
 
+/**
+ * Controller Update User
+ * @param \Illuminate\Http\Request  $request [body]{
+ *                                              id,
+ *                                              nickname
+*                                               email
+*                                               password
+*                                               role
+*                                               is_active }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                       'data' => $data,
+ */
+
 class Update extends Controller
 {
     public function __invoke(Request $request)

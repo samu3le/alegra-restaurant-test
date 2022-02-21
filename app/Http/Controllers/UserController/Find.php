@@ -9,6 +9,15 @@ use App\Services\Response;
 
 use App\Models\User;
 
+/**
+ * Controller Find User
+ * @param \Illuminate\Http\Request  $request [query]{ id }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                       'data' => $data,
+ */
+
 class Find extends Controller
 {
     public function __invoke(Request $request)

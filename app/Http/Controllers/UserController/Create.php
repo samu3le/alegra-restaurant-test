@@ -9,6 +9,19 @@ use App\Services\Response;
 
 use App\Models\User;
 
+/**
+ * Controller Create User
+ * @param \Illuminate\Http\Request  $request [body]{ nickname
+*                                               email
+*                                               password
+*                                               role
+*                                               is_active }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::CREATED,
+ *                       'data' => $data,
+ */
+
 class Create extends Controller
 {
     public function __invoke(Request $request)
