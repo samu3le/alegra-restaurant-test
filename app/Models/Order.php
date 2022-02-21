@@ -23,13 +23,13 @@ class Order extends Model
         'state',
         'created_at',
         'updated_at',
-        'delete_at',
+        'deleted_at',
     ];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'delete_at' => 'datetime:Y-m-d H:i:s',
+        'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     const STATE = [
@@ -47,7 +47,7 @@ class Order extends Model
         });
 
         static::creating(function($item) {
-            $item->created_by = config('app.env') === 'testing' ? 1 : \Auth::user()->id;
+            $item->created_by = \Auth::user() ? \Auth::user()->id : 1;
             \Log::info('Order Creating Event:'.$item);
         });
 

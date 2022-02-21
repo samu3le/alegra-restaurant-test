@@ -27,7 +27,7 @@ class User extends Authenticatable
         'role',
         'created_at',
         'updated_at',
-        'delete_at',
+        'deleted_at',
     ];
 
     protected $hidden = [
@@ -37,7 +37,7 @@ class User extends Authenticatable
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'delete_at' => 'datetime:Y-m-d H:i:s',
+        'deleted_at' => 'datetime:Y-m-d H:i:s',
         'role' => RolesOptions::class,
     ];
 
