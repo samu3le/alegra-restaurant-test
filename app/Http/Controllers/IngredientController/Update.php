@@ -30,6 +30,8 @@ class Update extends Controller
             $ingredientModel = new Ingredient();
             $ingredientModel->deleteFile($ingredient->image);
             $ingredient->image = $body['image'];
+        }else{
+            unset($ingredient->image);
         }
 
         $ingredient->save();

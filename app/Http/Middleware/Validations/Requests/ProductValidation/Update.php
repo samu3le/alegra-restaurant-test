@@ -45,11 +45,6 @@ class Update
 
         $body = $validator->validated();
 
-        return Response::UNPROCESSABLE_ENTITY(
-            message: 'Validation failed.',
-            errors: [],
-        );
-
         $ingredients = $validator->validated()['ingredients'] ?? [];
         if(!empty($ingredients)){
 

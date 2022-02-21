@@ -28,6 +28,8 @@ class Update extends Controller
             $productModel = new Product();
             $productModel->deleteFile($product->image);
             $product->image = $body['image'];
+        }else{
+            unset($product->image);
         }
         $product->save();
 
