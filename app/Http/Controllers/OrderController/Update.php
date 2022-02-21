@@ -10,6 +10,15 @@ use App\Models\Order;
 
 use App\Models\Product;
 
+/**
+ * Controller Update Order
+ * @param \Illuminate\Http\Request  $request [body]{ id }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                       'order' => $order,
+ */
+
 class Update extends Controller
 {
     public function __invoke(Request $request)

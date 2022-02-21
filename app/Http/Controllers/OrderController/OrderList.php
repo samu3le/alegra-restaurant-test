@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 use App\Services\Response;
 use App\Models\Order;
 
+/**
+ * Controller get all Orders with status and details to kitchen
+ * @param \Illuminate\Http\Request  $request [query]{ page
+*                                                       per_page
+*                                                       sort_by
+*                                                       sort }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                       'orders' => $paginate_order,
+ */
+
 class OrderList extends Controller
 {
     public function __invoke(Request $request)

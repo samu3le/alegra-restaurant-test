@@ -10,6 +10,15 @@ use App\Services\Response;
 use App\Models\Order;
 use App\Models\OrderDetails;
 
+/**
+ * Controller State Order
+ * @param \Illuminate\Http\Request  $request [body]{ orderDetails, state }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                       'order_details' => $orderDetails,
+ */
+
 class State extends Controller
 {
     public function __invoke(Request $request)
@@ -80,7 +89,7 @@ class State extends Controller
         $orderDetails = $body['orderDetails'];
         $orderDetails = OrderDetails::find($orderDetails->id);
         $orderDetails->product->ingredients;
-        
+
         return Response::OK(
             message: 'Order detail state updated.',
             data: [

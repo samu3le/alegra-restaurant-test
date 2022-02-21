@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 use App\Services\Response;
 use App\Models\Order;
 
+/**
+ * Controller Create Order
+ * @param \Illuminate\Http\Request  $request [body]{ quantity }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::CREATED,
+ *                       'order' => $order,
+ */
 
 class Create extends Controller
 {

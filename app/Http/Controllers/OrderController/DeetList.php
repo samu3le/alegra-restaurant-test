@@ -10,6 +10,15 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
 
+/**
+ * Controller generate random detail of Order
+ * @param \Illuminate\Http\Request  $request [body]{ id }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::CREATED,
+ *                       'order' => $order,
+ */
+
 class DeetList extends Controller
 {
     public function __invoke(Request $request)

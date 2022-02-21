@@ -9,6 +9,19 @@ use App\Services\Response;
 use App\Models\Order;
 use App\Models\User;
 
+
+/**
+ * Controller get all Order
+ * @param \Illuminate\Http\Request  $request [query]{ page
+*                                                       per_page
+*                                                       sort_by
+*                                                       sort }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                       'orders' => $orders,
+ */
+
 class GetAll extends Controller
 {
     public function __invoke(Request $request)
