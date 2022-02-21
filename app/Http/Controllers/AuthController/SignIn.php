@@ -11,6 +11,17 @@ use App\Services\Response;
 
 use App\Models\User;
 
+/**
+ * Controller Sign in
+ * @param \Illuminate\Http\Request  $request [body]{ user,
+*                                                   nickname,
+ *                                                  password}
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                      'data' => $data,
+ */
+
 class SignIn extends Controller
 {
     public function __invoke(Request $request)
@@ -70,7 +81,7 @@ class SignIn extends Controller
                 'role' => $user->role,
             ],
         ];
-        
+
         return Response::OK(
             data: $data,
             message: 'User signed in successfully.',

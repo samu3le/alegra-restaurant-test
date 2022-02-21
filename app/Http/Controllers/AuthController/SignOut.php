@@ -12,6 +12,17 @@ use App\Services\Response;
 
 use App\Model\User;
 
+
+/**
+ * Controller Sign Out
+ * @param Illuminate\Support\Facades\Auth;  Auth::user()
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                      message: 'Logout success.',
+ */
+
+
 class SignOut extends Controller
 {
     public function __invoke(Request $request)

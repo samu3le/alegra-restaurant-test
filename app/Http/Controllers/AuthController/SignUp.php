@@ -9,12 +9,25 @@ use App\Services\Response;
 
 use App\Models\User;
 
+
+/**
+ * Controller Sign up
+ * @param \Illuminate\Http\Request  $request [body]{ nickname,
+*                                                   email,
+ *                                                  password}
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::CREATED,
+ *                      'data' => $data,
+ */
+
+
 class SignUp extends Controller
 {
     public function __invoke(Request $request)
     {
         $body = $request['body'];
-        
+
         $user = new User;
 
         $user->nickname = $body['nickname'];
