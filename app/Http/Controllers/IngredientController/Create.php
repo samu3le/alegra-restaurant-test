@@ -9,6 +9,19 @@ use App\Services\Response;
 
 use App\Models\Ingredient;
 
+/**
+ * Controller Create Ingredient
+ * @param \Illuminate\Http\Request  $request [body]{ name
+*                                                   key
+*                                                   is_active
+*                                                   stock
+*                                                   image }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::CREATED,
+ *                      'ingredient' => $ingredient,
+ */
+
 class Create extends Controller
 {
     public function __invoke(Request $request)

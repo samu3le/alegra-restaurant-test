@@ -9,6 +9,20 @@ use App\Services\Response;
 
 use App\Models\Ingredient;
 
+/**
+ * Controller Update Ingredient
+ * @param \Illuminate\Http\Request  $request [body]{ id,
+ *                                                  name
+*                                                   key
+*                                                   is_active
+*                                                   stock
+*                                                   image }
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                      'ingredient' => $ingredient,
+ */
+
 class Update extends Controller
 {
     public function __invoke(Request $request)
