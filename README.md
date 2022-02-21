@@ -1,9 +1,18 @@
 ## Entorno de desarrollo
 
+
 Ubuntu 20.04.03
+
+
 Composer version 2.2.3 2021-12-31 12:18:53
+
+
 Laravel 9
+
+
 PostgreSQL 14.2
+
+
 
 ### docker --version
 
@@ -52,7 +61,7 @@ https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-st
 
 ## Postman Collection
 
-[Archivo .json](/public/postma/test-restaurant.postman_collection.json)
+[Archivo .json](/public/postman/test-restaurant.postman_collection.json)
 
 ## Database structure
 
