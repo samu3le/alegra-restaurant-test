@@ -1,5 +1,10 @@
 ## Entorno de desarrollo
 
+Ubuntu 20.04.03
+Composer version 2.2.3 2021-12-31 12:18:53
+Laravel 9
+PostgreSQL 14.2
+
 ### docker --version
 
     Docker version 20.10.11, build dea9396
