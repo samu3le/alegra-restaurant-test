@@ -52,7 +52,7 @@ https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-st
 
 ## Postman Collection
 
-[Archivo .json](/assets/postman_collection.json)
+[Archivo .json](/public/postma/test-restaurant.postman_collection.json)
 
 ## Database structure
 
