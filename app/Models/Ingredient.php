@@ -59,7 +59,9 @@ class Ingredient extends Model
         });
 
         static::updating(function($item) {
-            $item->image ? $item->image = self::saveIngredientImage($item->image) : null ;
+            if($item->image){
+                $item->image = self::saveIngredientImage($item->image);
+            }
             \Log::info('Ingredient Updating Event:'.$item);
         });
 

@@ -156,7 +156,7 @@ Route::prefix('v1')->middleware([
             ->post('detail_state', Controllers\OrderController\State::class);
 
             Route::middleware([
-                Requests\Validation\DeetList::class
+                Requests\OrderValidation\DeetList::class
             ])
             ->post('deet_list', Controllers\OrderController\DeetList::class);
 
