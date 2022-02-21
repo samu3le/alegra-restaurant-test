@@ -13,6 +13,12 @@ use App\Http\Controllers;
 Route::prefix('v1')->middleware([
     DataParser::class,
 ])->group(function () {
+
+    Route::get('/service1', function(Request $request) {
+        $response = \Illuminate\Support\Facades\Http::get('http://microservice-a/api/service');
+        return new \Illuminate\Http\Response($response->body(), $response->status());
+     });
+
     Route::prefix('auth')->group(function () {
 
         Route::middleware([

@@ -5,25 +5,46 @@ volumes:
 
 networks:
   test_restaurant:
-    driver: bridge
+    external: true
 
 services: 
-    main:
-      container_name: test_restaurant_web
-      build: 
-        context: .
+    api_gateway:
+      container_name: test_restaurant_api_gateway
+      build:
+        context: ./api-gateway
         dockerfile: Dockerfile
-      command: bash -c 'php artisan migrate && php artisan db:seed && php artisan serve --host 0.0.0.0'
-      volumes:
-        - .:/app
+        args:
+          WWWGROUP: '${GID}'
+      command: bash -c 'php artisan serve --host 0.0.0.0'
+      extra_hosts:
+        - 'host.docker.internal:host-gateway'
       ports:
-        - 8000:8000
+        - '8080:80'
+      environment:
+        WWWUSER: '${UID}'
       env_file:
         - ./.env
+      volumes:
+        - './api-gateway/:/var/www/html'
       depends_on: 
         - db
       links:
         - db
+      networks:
+        - test_restaurant
+  
+    microservice-a:
+      build:
+        context: ./microservice-a
+        dockerfile: Dockerfile
+        args:
+          WWWGROUP: '${GID}'
+      extra_hosts:
+        - 'host.docker.internal:host-gateway'
+      environment:
+        WWWUSER: '${UID}'
+      volumes:
+        - './microservice-a/:/var/www/html'
       networks:
         - test_restaurant
         
