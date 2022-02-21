@@ -14,6 +14,14 @@ use Illuminate\Validation;
 use Illuminate\Filesystem;
 use Illuminate\Translation;
 
+/**
+ * validate image file is base64
+ * @param \Illuminate\Http\Request  $request
+ * @param Closure $next The next middleware.
+ *
+ * @return mixed Validate data , return data validated.
+ */
+
 class IsBase64 implements Rule, DataAwareRule
 {
     public $errors = [];

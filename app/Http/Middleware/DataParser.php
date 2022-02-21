@@ -5,6 +5,15 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
+
+/**
+ * Data parser, verify token and put ipAddress and userAgent to the request
+ * @param \Illuminate\Http\Request  $request
+ * @param Closure $next The next middleware.
+ *
+ * @return mixed Put ipAddress and userAgent to request.
+ */
+
 class DataParser
 {
     public function handle(Request $request, Closure $next)

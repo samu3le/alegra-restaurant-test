@@ -4,6 +4,14 @@ namespace App\Http\Middleware;
 
 use Illuminate\Contracts\Validation\Rule;
 
+/**
+ * validate array, find data not repeat at array to validate
+ * @param \Illuminate\Http\Request  $request
+ * @param Closure $next The next middleware.
+ *
+ * @return mixed Validate data , return array validated.
+ */
+
 class ListNotRepeat implements Rule
 {
     protected $data = [];

@@ -10,6 +10,14 @@ use App\Services\Response;
 
 use App\Models\User;
 
+/**
+ * Permission user authorization, validate request
+ * @param \Illuminate\Http\Request  $request
+ * @param Closure $next The next middleware.
+ *
+ * @return mixed Valid Permission, authorized or unauthorized user.
+ */
+
 class CanPermission
 {
     public function handle(Request $request, Closure $next, $permission)

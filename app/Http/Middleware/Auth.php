@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Auth as AuthLaravel;
 use App\Services\JWT;
 use App\Services\Response;
 
+/**
+ * Token user authorization, validate request
+ * @param Request $request = Token
+ * @param Closure $next The next middleware.
+ *
+ * @return mixed Valid token, authorized or unauthorized user.
+ */
+
 class Auth
 {
     public function handle(Request $request, Closure $next)

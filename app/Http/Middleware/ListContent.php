@@ -10,6 +10,14 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Middleware\IsBase64;
 
+/**
+ * validate array, validate data content and type
+ * @param \Illuminate\Http\Request  $request
+ * @param Closure $next The next middleware.
+ *
+ * @return mixed Validate data , return array validated.
+ */
+
 class ListContent implements Rule, DataAwareRule
 {
     protected $data = [];

@@ -6,6 +6,15 @@ use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Support\Facades\DB;
 
+
+/**
+ * validate array, find data exists on database
+ * @param \Illuminate\Http\Request  $request
+ * @param Closure $next The next middleware.
+ *
+ * @return mixed Validate data , return array validated.
+ */
+
 class ExistList implements Rule, DataAwareRule
 {
     public $table = '';
