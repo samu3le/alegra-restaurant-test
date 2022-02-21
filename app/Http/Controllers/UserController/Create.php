@@ -20,7 +20,7 @@ class Create extends Controller
         $user->email = $body['email'];
         $user->password = $body['password'];
         if(isset($body['role'])) {
-            $user->role = $body['role'];
+            $user->role = array_search($body['role'], User::ROLES);
         }
         if(isset($body['is_active'])){
             $user->is_active = $body['is_active'];
@@ -31,7 +31,6 @@ class Create extends Controller
             'user' => [
                 'nickname' => $user->nickname,
                 'email' => $user->email,
-                'token' => $user->token,
             ],
         ];
 

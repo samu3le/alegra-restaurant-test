@@ -9,6 +9,8 @@ use App\Services;
 
 use App\Models\ShoppingHistory;
 
+use App\Casts\ImageUrl;
+
 class Ingredient extends Model
 {
     use HasFactory,Services\Storage;
@@ -29,7 +31,17 @@ class Ingredient extends Model
         'stock',
         'image',
         'created_by',
-        'created_at'
+        'created_at',
+        'updated_at',
+        'delete_at',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'delete_at' => 'datetime:Y-m-d H:i:s',
+        'image' => ImageUrl::class,
+
     ];
 
     public static function boot() {
@@ -41,9 +53,16 @@ class Ingredient extends Model
         });
 
         static::creating(function($item) {
-            $item->image ? $item->image = self::saveProductImage($item->image) : null ;
+            $item->image ? $item->image = self::saveIngredientImage($item->image) : null ;
             $item->created_by = config('app.env') === 'testing' ? 1 : \Auth::user()->id;
             \Log::info('Ingredient Creating Event:'.$item);
+        });
+
+        static::updating(function($item) {
+            if($item->image){
+                $item->image = self::saveIngredientImage($item->image);
+            }
+            \Log::info('Ingredient Updating Event:'.$item);
         });
 
 	}
@@ -64,9 +83,14 @@ class Ingredient extends Model
             );
     }
 
-    public function shopping()
+    public function shoppings()
     {
         return $this->hasMany(ShoppingHistory::class, 'ingredient_id', 'id');
+    }
+
+    public function owner()
+    {
+        return $this->hasOne(User::class,'id','created_by');
     }
 
 }

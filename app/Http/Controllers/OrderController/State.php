@@ -52,6 +52,7 @@ class State extends Controller
             $orderDetails->product->ingredients->each(function($ingredient) use ($detailQuantity) {
                 $recipeQuantity = $ingredient->pivot->quantity;
                 $ingredient->stock -= ($detailQuantity * $recipeQuantity);
+                unset($ingredient->image);
                 $ingredient->save();
             });
 
@@ -63,8 +64,8 @@ class State extends Controller
             $orderDetails->save();
 
             $allOrderDetailsPrepared = true;
-            $order = Order::find($orderDetails->order_id);
-            $order_details = $order->order_details->toArray();
+            $order = Order::where('id', $orderDetails->order_id)->with('details')->first();
+            $order_details = $order['details'];
             foreach ($order_details as $key => $order_detail) {
                 if($order_detail['state'] != 4){
                     $allOrderDetailsPrepared = false;
@@ -72,8 +73,7 @@ class State extends Controller
                 }
             }
             if($allOrderDetailsPrepared){
-                $order->state = 3;
-                $order->save();
+                Order::where('id', $orderDetails->order_id)->update(['state' => 3]);
             }
         }
 

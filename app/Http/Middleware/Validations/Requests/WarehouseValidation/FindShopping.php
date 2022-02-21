@@ -8,15 +8,29 @@ use Illuminate\Http\Request;
 use App\Services\Validator;
 use App\Services\Response;
 
+use App\Models\ShoppingHistory;
+
 class FindShopping
 {
     public function handle(Request $request, Closure $next)
     {
+        $shopping_model = new ShoppingHistory();
+
         $validator = Validator::make($request['query'], [
             'id' => [
                 'required',
                 'integer',
                 'exists:ingredients,id',
+            ],
+            'sort_by' => [
+                'nullable',
+                'string',
+                 'in:' . implode(',', $shopping_model->getFillable())
+            ],
+            'sort' => [
+                'nullable',
+                'string',
+                 'in:asc,desc'
             ],
         ]);
 
@@ -27,8 +41,15 @@ class FindShopping
             );
         }
 
+        $query = $request['query'];
+
+        $query['page'] = $query['page'] ?? 1;
+        $query['per_page'] = $query['per_page'] ?? 10;
+
+        $params = array_merge($query,$validator->validated());
+
         $request->merge([
-            'query' => $validator->validated(),
+            'query' => $params,
         ]);
 
         return $next($request);

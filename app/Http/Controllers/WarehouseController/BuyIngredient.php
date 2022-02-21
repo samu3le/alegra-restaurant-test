@@ -31,6 +31,7 @@ class BuyIngredient extends Controller
         $shopping_history->quantity = $market_quantity_sold['quantitySold'];
         $shopping_history->save();
 
+        unset($ingredient->image);
         $ingredient->stock = $ingredient->stock + $shopping_history->quantity;
         $ingredient->save();
 

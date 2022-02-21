@@ -21,7 +21,15 @@ class Order extends Model
         'created_by',
         'quantity',
         'state',
-        'created_at'
+        'created_at',
+        'updated_at',
+        'delete_at',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'delete_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     const STATE = [
@@ -54,9 +62,9 @@ class Order extends Model
         return $this->hasMany(OrderDetails::class, 'order_id', 'id');
     }
 
-    public function created_by()
+    public function owner()
     {
-        return $this->hasOne(User::class, 'created_by', 'id');
+        return $this->hasOne(User::class,'id','created_by');
     }
 
 }

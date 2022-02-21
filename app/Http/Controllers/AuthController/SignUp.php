@@ -28,6 +28,7 @@ class SignUp extends Controller
                 'nickname' => $user->nickname,
                 'email' => $user->email,
                 'token' => $user->token,
+                'role' => $user->role,
             ],
         ];
 

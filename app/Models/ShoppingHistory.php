@@ -23,7 +23,15 @@ class ShoppingHistory extends Model
         'ingredient_id',
         'quantity',
         'created_by',
-        'created_at'
+        'created_at',
+        'updated_at',
+        'delete_at',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'delete_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public static function boot() {
@@ -43,6 +51,11 @@ class ShoppingHistory extends Model
 
     public function getFillable() {
         return $this->fillable;
+    }
+
+    public function owner()
+    {
+        return $this->hasOne(User::class,'id','created_by');
     }
 
 }

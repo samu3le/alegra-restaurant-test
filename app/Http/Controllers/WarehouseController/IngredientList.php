@@ -21,7 +21,7 @@ class IngredientList extends Controller
 
         $ingredients = Ingredient::where('is_active', 'true')
         ->with(['products.orders_details' => function ($query) {
-            $query->where('orders_details.state', 1);
+            $query->whereIn('orders_details.state', [1,2]);
         }]);
 
         $ingredients = $ingredients->paginate(

@@ -18,8 +18,7 @@ class GetAll extends Controller
         $page = $query['page'];
         $per_page = $query['per_page'];
 
-        $orders = new Order();
-        $orders = $orders->created_by();
+        $orders = Order::with('owner');
 
         if(isset($query['sort_by'])){
             $orders = $orders->orderBy($query['sort_by'], $query['sort']);

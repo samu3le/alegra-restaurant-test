@@ -80,53 +80,6 @@ class ListContent implements Rule, DataAwareRule
                 }
                 $this->data['message_error'] = $array_of_errors;
                 break;
-            /*
-            case 'object':
-                $list_validations = $this->validations;
-                $items = $value;
-
-                $validations = [];
-
-                foreach($list_validations as $list_validations_key => $list_validation){
-                    // print_r("\n");
-                    // print_r($key);
-                    // print_r("\n");
-                    // print_r($list_validation);
-
-                    foreach ($list_validation as $list_validation_key => $validation) {
-                        $list_validation[$list_validation_key] = $validation;
-                        $validation_splited = explode(":", $validation);
-                        if (count($validation_splited) > 1) {
-                            print_r("\n");
-                            print_r($validation_splited);
-                            switch ($validation_splited[0]) {
-                                case 'exist':
-                                    $list_validation[$list_validation_key] = new Exist('users', 'id');
-                                    break;
-
-                                default:
-                                    unset($list_validation[$list_validation_key]);
-                                    break;
-                            }
-                        }
-                        // print_r("\n");
-                        // print_r($validation);
-                    }
-                }
-
-                $body = [];
-                foreach($items as $key => $item){
-                }
-
-                // $validator = new Validator();
-                // $validator->validate($body, $validators);
-
-                $this->data['message_error'] = ['1'];
-                $value = ['1'];
-
-                break;
-            */
-
             default:
                 $value = [];
                 break;
@@ -144,6 +97,9 @@ class ListContent implements Rule, DataAwareRule
     {
         $message = 'The :attribute must be list of ' . $this->type . ', the items with errors are: ' ;
         if(isset($this->data['message_error'])){
+            $this->data['message_error'] = collect($this->data['message_error'])->map(function($item, $key){
+                return json_encode($item, true) ? '[Object]' : $item;
+            })->toArray();
             $message .= implode(',', $this->data['message_error']);
         }
         return $message;

@@ -37,6 +37,10 @@ class Auth
 
         AuthLaravel::loginUsingId($jwt::session()->user_id);
 
+        if(!AuthLaravel::user()->is_active){
+            return Response::UNAUTHORIZED();
+        }
+
         $jwt->activity();
 
         $request->merge([

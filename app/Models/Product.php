@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Recipe;
 use App\Services;
 
+use App\Casts\ImageUrl;
+
 class Product extends Model
 {
     use HasFactory, Services\Storage;
@@ -24,7 +26,17 @@ class Product extends Model
         'is_active',
         'image',
         'created_by',
-        'created_at'
+        'created_at',
+        'updated_at',
+        'delete_at',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'delete_at' => 'datetime:Y-m-d H:i:s',
+        'image' => ImageUrl::class,
+
     ];
 
     public static function boot() {
@@ -39,6 +51,11 @@ class Product extends Model
             $item->image ? $item->image = self::saveProductImage($item->image) : null ;
             $item->created_by = config('app.env') === 'testing' ? 1 : \Auth::user()->id;
             \Log::info('Product Creating Event:'.$item);
+        });
+
+        static::updating(function($item) {
+            $item->image ? $item->image = self::saveProductImage($item->image) : null ;
+            \Log::info('Product Updating Event:'.$item);
         });
 	}
 

@@ -11,7 +11,7 @@ use App\Http\Middleware\Validations\Requests;
 use App\Http\Controllers;
 
 Route::prefix('v1')->middleware([
-    DataParser::class, 
+    DataParser::class,
 ])->group(function () {
     Route::prefix('auth')->group(function () {
 
@@ -90,6 +90,35 @@ Route::prefix('v1')->middleware([
 
         });
 
+
+        Route::middleware([
+            CanPermission::class.':manager',
+        ])->prefix('orders')->group(function () {
+
+            Route::middleware([
+                Validations\Requests\Pagination::class,
+                Requests\OrderValidation\GetAll::class
+            ])
+            ->get('get_all',  Controllers\OrderController\GetAll::class);
+
+            Route::middleware([
+                Requests\OrderValidation\Find::class
+            ])
+            ->get('find',  Controllers\OrderController\Find::class);
+
+            Route::middleware([
+                Requests\OrderValidation\Create::class
+            ])
+            ->post('create', Controllers\OrderController\Create::class);
+
+            Route::middleware([
+                Requests\OrderValidation\Update::class
+            ])
+            ->post('update', Controllers\OrderController\Update::class);
+
+        });
+
+
         Route::middleware([
             CanPermission::class.':kitchen',
         ])->prefix('products')->group(function () {
@@ -122,35 +151,20 @@ Route::prefix('v1')->middleware([
         ])->prefix('orders')->group(function () {
 
             Route::middleware([
-                Validations\Requests\Pagination::class,
-                Requests\OrderValidation\GetAll::class
-            ])
-            ->get('get_all',  Controllers\OrderController\GetAll::class);
-
-            Route::middleware([
-                Requests\OrderValidation\Find::class
-            ])
-            ->get('find',  Controllers\OrderController\Find::class);
-
-            Route::middleware([
-                Requests\OrderValidation\Create::class
-            ])
-            ->post('create', Controllers\OrderController\Create::class);
-
-            Route::middleware([
-                Requests\OrderValidation\Update::class
-            ])
-            ->post('update', Controllers\OrderController\Update::class);
-
-            Route::middleware([
                 Requests\OrderValidation\State::class
             ])
             ->post('detail_state', Controllers\OrderController\State::class);
 
             Route::middleware([
-                Requests\Validation\DeetList::class
+                Requests\OrderValidation\DeetList::class
             ])
             ->post('deet_list', Controllers\OrderController\DeetList::class);
+
+            Route::middleware([
+                Validations\Requests\Pagination::class,
+                Requests\OrderValidation\OrderList::class
+            ])
+            ->get('get_all_states', Controllers\OrderController\OrderList::class);
 
         });
 
@@ -169,26 +183,10 @@ Route::prefix('v1')->middleware([
             ->post('buy', Controllers\WarehouseController\BuyIngredient::class);
 
             Route::middleware([
+                Validations\Requests\Pagination::class,
                 Requests\WarehouseValidation\FindShopping::class
             ])
             ->get('shopping_list', Controllers\WarehouseController\FindShopping::class);
-
-        });
-
-        Route::middleware([
-            CanPermission::class.':guest',
-        ])->prefix('kitchen')->group(function () {
-
-            Route::middleware([
-                Requests\OrderValidation\DeetList::class
-            ])
-            ->post('deet_list', Controllers\OrderController\DeetList::class);
-
-            Route::middleware([
-                // Requests\OrderValidation\OrderList::class
-            ])
-            ->get('order_list', Controllers\OrderController\OrderList::class);
-
 
         });
 

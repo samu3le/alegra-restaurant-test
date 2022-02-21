@@ -24,9 +24,17 @@ class OrderDetails extends Model
         'order_id',
         'state',
         'quantity',
-        'created_at'
+        'created_at',
+        'updated_at',
+        'delete_at',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'delete_at' => 'datetime:Y-m-d H:i:s',
+    ];
+    
     const STATE = [
         1 => 'created', // cuando fue generado el pedido
         2 => 'requested', // cuando fue solicitado a bodega

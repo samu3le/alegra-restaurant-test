@@ -5,11 +5,12 @@ return [
 
     'allowed_methods' => ['GET','POST'],
 
-    'allowed_origins' => explode(",", getenv("ALLOWED_ORIGINS")) ?: ['*'],
+    'allowed_origins' => explode(",", env('ALLOWED_ORIGINS', '*')),
 
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => [
+        'Content-Type',
         'Accept',
         'Authorization',
         'User-Agent',

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Services;
 
+use App\Casts\RolesOptions;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -22,8 +24,10 @@ class User extends Authenticatable
         'uuid',
         'password',
         'is_active',
-        'role_id',
-        'created_at'
+        'role',
+        'created_at',
+        'updated_at',
+        'delete_at',
     ];
 
     protected $hidden = [
@@ -31,7 +35,10 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'delete_at' => 'datetime:Y-m-d H:i:s',
+        'role' => RolesOptions::class,
     ];
 
     const ROLES = [
@@ -58,7 +65,7 @@ class User extends Authenticatable
             $user->uuid = (string) Str::uuid();
             $user->password = Hash::make($user->password);
             if(!$user->role) {
-                $user->role = 3;
+                $user->role = 4;
             }
 
             \Log::info('User Creating Event:'.$user);
