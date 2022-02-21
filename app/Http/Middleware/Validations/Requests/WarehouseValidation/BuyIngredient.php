@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 use App\Services\Validator;
 use App\Services\Response;
 
+/**
+ * Validate data to Buy ingredient
+ * @param \Illuminate\Http\Request  $request {id}
+ * @param Closure $next Controllers\WarehouseController\BuyIngredient .
+ *
+ * @return mixed Validate data , return array validated with error or next to cotroller.
+ */
+
 class BuyIngredient
 {
     public function handle(Request $request, Closure $next)

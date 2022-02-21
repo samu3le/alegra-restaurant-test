@@ -12,6 +12,21 @@ use App\Services\Response;
 
 use App\Models\User;
 
+/**
+ * Validate data to Create User
+ * @param \Illuminate\Http\Request  $request {
+                                                * email,
+                                                * nickname,
+                                                * password,
+                                                * passwordConfirm,
+                                                *role,
+                                                *is_active
+                                            *}
+ * @param Closure $next Controllers\UserController\Create.
+ *
+ * @return mixed Validate data , return array validated with error or next to cotroller.
+ */
+
 class Create
 {
     public function handle(Request $request, Closure $next)
@@ -21,19 +36,19 @@ class Create
             'email' => [
                 'required',
                 'email',
-                'min:6', 
+                'min:6',
                 'max:50',
                 'iunique:users',
             ],
             'nickname' => [
-                'required', 
+                'required',
                 'alpha_num',
-                'min:6', 
+                'min:6',
                 'max:50',
                 'iunique:users',
             ],
             'password' => [
-                'required', 
+                'required',
                 Password::defaults(),
             ],
             'passwordConfirmation' => [
@@ -41,7 +56,7 @@ class Create
                 'same:password',
             ],
             'role' => [
-                'string', 
+                'string',
                 'in:'.implode(",", array_values(User::ROLES)),
             ],
             'is_active' => [

@@ -12,25 +12,41 @@ use App\Services\Response;
 
 use App\Models\User;
 
+/**
+ * Validate data to Update User
+ * @param \Illuminate\Http\Request  $request {
+                                                * id,
+                                                * email,
+                                                * nickname,
+                                                * password,
+                                                * passwordConfirm,
+                                                *role,
+                                                *is_active
+                                            *}
+ * @param Closure $next Controllers\UserController\Update.
+ *
+ * @return mixed Validate data , return array validated with error or next to cotroller.
+ */
+
 class Update
 {
     public function handle(Request $request, Closure $next)
     {
         $validator = Validator::make($request['body'], [
             'id' => [
-                'required', 
-                'integer', 
+                'required',
+                'integer',
                 'exists:users',
             ],
             'email' => [
                 'email',
-                'min:6', 
+                'min:6',
                 'max:50',
                 isset($request->id) ? 'iunique:users,email,'.$request->id :null,
             ],
             'nickname' => [
                 'alpha_num',
-                'min:6', 
+                'min:6',
                 'max:50',
                 isset($request->id) ? 'iunique:users,nickname,'.$request->id :null,
             ],
@@ -38,11 +54,11 @@ class Update
                 Password::defaults(),
             ],
             'passwordConfirmation' => [
-                'same:password', 
+                'same:password',
                 'required_with:password',
             ],
             'role' => [
-                'string', 
+                'string',
                 'in:'.implode(",", array_values(User::ROLES)),
             ],
             'is_active' => [

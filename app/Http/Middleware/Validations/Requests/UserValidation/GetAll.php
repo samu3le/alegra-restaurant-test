@@ -10,6 +10,14 @@ use App\Models\User;
 
 use App\Services\Response;
 
+/**
+ * Validate data to Get all Users
+ * @param \Illuminate\Http\Request  $request { sort_by,sort }
+ * @param Closure $next Controllers\UserController\GetAll
+ *
+ * @return mixed Validate data , return array validated with error or next to cotroller.
+ */
+
 class GetAll
 {
     public function handle(Request $request, Closure $next)

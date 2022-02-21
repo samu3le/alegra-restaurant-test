@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Services\Response;
 
+/**
+ * validate data pagination
+ * @param \Illuminate\Http\Request  $request {page, per_page, search}
+ * @param Closure $next The next middleware.
+ *
+ * @return mixed Validate data , return data validated.
+ */
+
 class Pagination
 {
     public function handle(Request $request, Closure $next)
@@ -34,7 +42,7 @@ class Pagination
         $request->merge([
             'query' => $query,
         ]);
-        
+
         return $next($request);
     }
 }

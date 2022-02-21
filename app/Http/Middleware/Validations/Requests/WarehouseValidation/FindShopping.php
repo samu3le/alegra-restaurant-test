@@ -10,6 +10,14 @@ use App\Services\Response;
 
 use App\Models\ShoppingHistory;
 
+/**
+ * Validate data of Shopping list for ingredient
+ * @param \Illuminate\Http\Request  $request {id, sort_by, sort}
+ * @param Closure $next Controllers\WarehouseController\FindShopping
+ *
+ * @return mixed Validate data , return array validated with error or next to cotroller.
+ */
+
 class FindShopping
 {
     public function handle(Request $request, Closure $next)
