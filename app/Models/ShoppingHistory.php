@@ -25,13 +25,13 @@ class ShoppingHistory extends Model
         'created_by',
         'created_at',
         'updated_at',
-        'delete_at',
+        'deleted_at',
     ];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'delete_at' => 'datetime:Y-m-d H:i:s',
+        'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public static function boot() {
@@ -43,7 +43,7 @@ class ShoppingHistory extends Model
         });
 
         static::creating(function($item) {
-            $item->created_by = config('app.env') === 'testing' ? 1 : \Auth::user()->id;
+            $item->created_by = \Auth::user() ? \Auth::user()->id : 1;
             \Log::info('Shopping History Creating Event:'.$item);
         });
 

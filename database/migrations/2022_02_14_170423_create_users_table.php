@@ -40,14 +40,9 @@ return new class extends Migration
                     'nickname' => 'admin',
                     'email' => 'admin@mail.com',
                     'uuid' => (string) Str::uuid(),
-                    'password' => Hash::make('12345678')
+                    'password' => Hash::make('12345678'),
+                    'role' => 1,
                 ],
-                [
-                    'nickname' => 'user1',
-                    'email' => 'user1@mail.com',
-                    'uuid' => (string) Str::uuid(),
-                    'password' => Hash::make('12345678')
-                ]
             ]
         );
 
