@@ -10,6 +10,14 @@ use App\Services\Response;
 
 use App\Models\Order;
 
+/**
+ * Validate data to get all Order
+ * @param \Illuminate\Http\Request  $request { sort_by, sort }
+ * @param Closure $next Controllers\OrderController\GetAll.
+ *
+ * @return mixed Validate data, return array validated with error or next to cotroller.
+ */
+
 class GetAll
 {
     public function handle(Request $request, Closure $next)

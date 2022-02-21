@@ -11,6 +11,18 @@ use App\Services\Response;
 use App\Models\Order;
 use App\Models\Product;
 
+/**
+ * Validate data to Update Order
+ * @param \Illuminate\Http\Request  $request {
+ *                                              id,
+ *                                              quantity,
+ *                                              state
+ * }
+ * @param Closure $next Controllers\OrderController\Update.
+ *
+ * @return mixed Validate data, return array validated with error or next to cotroller.
+ */
+
 class Update
 {
     public function handle(Request $request, Closure $next)
@@ -37,7 +49,7 @@ class Update
                 ],
             );
         }
-        
+
         if($validator->fails()){
             return Response::UNPROCESSABLE_ENTITY(
                 message: 'Validation failed.',

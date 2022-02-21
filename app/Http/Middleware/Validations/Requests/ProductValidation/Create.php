@@ -16,6 +16,19 @@ use App\Http\Middleware\ListContent;
 use App\Http\Middleware\ExistList;
 use App\Http\Middleware\ListNotRepeat;
 
+/**
+ * Validate data to Create Product
+ * @param \Illuminate\Http\Request  $request {
+                                                * name,
+                                                * is_active,
+                                                * image,
+                                                * ingredients { id_ingredient , quantity }
+                                            *}
+ * @param Closure $next Controllers\ProductController\Create.
+ *
+ * @return mixed Validate data , return array validated with error or next to cotroller.
+ */
+
 class Create
 {
     public function handle(Request $request, Closure $next)

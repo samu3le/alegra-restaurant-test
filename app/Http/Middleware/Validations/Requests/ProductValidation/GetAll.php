@@ -10,6 +10,14 @@ use App\Models\Product;
 use App\Services\Validator;
 use App\Services\Response;
 
+/**
+ * Validate data to get all Product
+ * @param \Illuminate\Http\Request  $request { sort_by,sort }
+ * @param Closure $next Controllers\ProductController\GetAll
+ *
+ * @return mixed Validate data , return array validated with error or next to cotroller.
+ */
+
 class GetAll
 {
     public function handle(Request $request, Closure $next)

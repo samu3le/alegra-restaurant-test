@@ -16,6 +16,20 @@ use App\Http\Middleware\ListContent;
 use App\Http\Middleware\ExistList;
 use App\Http\Middleware\ListNotRepeat;
 
+/**
+ * Validate data to Update Product
+ * @param \Illuminate\Http\Request  $request {
+                                                * id,
+                                                * name,
+                                                * is_active,
+                                                * image,
+                                                * ingredients { id_ingredient , quantity }
+                                            *}
+ * @param Closure $next Controllers\ProductController\Update
+ *
+ * @return mixed Validate data , return array validated with error or next to cotroller.
+ */
+
 class Update
 {
     public function handle(Request $request, Closure $next)

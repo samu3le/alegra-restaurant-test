@@ -11,6 +11,15 @@ use App\Services\Response;
 use App\Models\Order;
 use App\Models\OrderDetails;
 
+/**
+ * Validate data to Change state Order
+ * @param \Illuminate\Http\Request  $request { id, state }
+ * @param Closure $next Controllers\OrderController\State.
+ *
+ * @return mixed Validate data, return array validated with error or next to cotroller.
+ */
+
+
 class State
 {
     public function handle(Request $request, Closure $next)
@@ -23,7 +32,7 @@ class State
             ],
             'state' => [
                 'required',
-                'integer', 
+                'integer',
                 'in:'.implode(",", array_keys(OrderDetails::STATE)),
             ],
         ]);

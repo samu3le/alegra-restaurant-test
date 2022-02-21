@@ -11,6 +11,15 @@ use App\Services\Response;
 use App\Models\Order;
 use App\Models\Product;
 
+/**
+ * Validate data to Create Order
+ * @param \Illuminate\Http\Request  $request { quantity }
+ * @param Closure $next Controllers\OrderController\Create.
+ *
+ * @return mixed Validate data and search if exists data ingredients,
+ * return array validated with error or next to cotroller.
+ */
+
 class Create
 {
     public function handle(Request $request, Closure $next)
