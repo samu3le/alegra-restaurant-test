@@ -5,6 +5,12 @@
 
 ### docker-compose --version
     docker-compose version 1.27.4, build 40524192
+    
+## Cómo instalar y usar Docker en Ubuntu 20.04
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-es
+
+https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot
 
 ## Comandos para arrancar el contenedor:
     sudo docker-compose build --no-cache
