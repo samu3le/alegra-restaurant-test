@@ -16,6 +16,7 @@ class Pagination
         $validator = Validator::make($request['query'], [
             'page' => ['nullable', 'integer', 'min:1'],
             'per_page' => ['nullable', 'integer', 'min:1', 'max:100'],
+            'search' => ['nullable', 'string'],
         ]);
 
         if($validator->fails()){

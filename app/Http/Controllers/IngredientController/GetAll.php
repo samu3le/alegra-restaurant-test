@@ -22,6 +22,9 @@ class GetAll extends Controller
         if(isset($query['sort_by'])){
             $ingredients = $ingredients->orderBy($query['sort_by'], $query['sort']);
         }
+        if(isset($query['search'])){
+            $ingredients = $ingredients->where('name', 'like', '%'.$query['search'].'%');
+        }
 
         $ingredients = $ingredients->paginate(
             $per_page, // per page (may be get it from request)
