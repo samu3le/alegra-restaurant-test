@@ -10,6 +10,20 @@ use App\Http\Middleware\IsBase64;
 use App\Services\Validator;
 use App\Services\Response;
 
+/**
+ * Validate data to Update Ingredient
+ * @param \Illuminate\Http\Request  $request {
+ *                                              id,
+ *                                              name,
+                                                * key,
+                                                * stock,
+                                                * is_active,
+                                                * image
+                                            *}
+ * @param Closure $next Controllers\IngredientController\Update.
+ *
+ * @return mixed Validate data, return array validated with error or next to cotroller.
+ */
 class Update
 {
     public function handle(Request $request, Closure $next)

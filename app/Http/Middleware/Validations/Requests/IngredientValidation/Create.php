@@ -10,6 +10,20 @@ use App\Http\Middleware\IsBase64;
 use App\Services\Validator;
 use App\Services\Response;
 
+/**
+ * Validate data to Create Ingredient
+ * @param \Illuminate\Http\Request  $request {
+ *                                              name,
+                                                * key,
+                                                * stock,
+                                                * is_active,
+                                                * image
+                                            *}
+ * @param Closure $next Controllers\IngredientController\Create.
+ *
+ * @return mixed Validate data return array validated with error or next to cotroller.
+ */
+
 class Create
 {
     public function handle(Request $request, Closure $next)

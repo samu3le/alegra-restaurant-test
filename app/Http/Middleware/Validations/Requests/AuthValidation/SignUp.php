@@ -8,6 +8,19 @@ use Illuminate\Http\Request;
 use App\Services\Response;
 use App\Services\Validator;
 
+/**
+ * Validate data to sign up session
+ * @param \Illuminate\Http\Request  $request {
+ *                                              email,
+                                                * nickname,
+                                                * password,
+                                                *passwordConfirmation
+                                            *}
+ * @param Closure $next Controllers\AuthController\SignUp.
+ *
+ * @return mixed Validate data return array validated with error or next to cotroller.
+ */
+
 class SignUp
 {
     public function handle(Request $request, Closure $next)

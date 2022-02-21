@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 use App\Services\Response;
 use App\Services\Validator;
 
+/**
+ * Validate data to sign in session
+ * @param \Illuminate\Http\Request  $request {
+ *                                              user,
+                                                * password,
+                                                * remember_me,
+                                            *}
+ * @param Closure $next Controllers\AuthController\SignIn.
+ *
+ * @return mixed Validate data return array validated with error or next to cotroller.
+ */
 class SignIn
 {
     public function handle(Request $request, Closure $next)
