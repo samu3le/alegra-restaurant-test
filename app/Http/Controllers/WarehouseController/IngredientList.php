@@ -9,6 +9,18 @@ use App\Services\Response;
 
 use App\Models\Ingredient;
 
+/**
+ * Controller get all data ingredients list on warehouse
+ * @param \Illuminate\Http\Request  $request {
+ *                                              query
+*                                               page
+*                                               per_page
+                                            *}
+ * @param Closure return App\Services\Response Response
+ *
+ * @return mixed return Response::OK, 'ingredients' => $ingredients,.
+ */
+
 class IngredientList extends Controller
 {
     public function __invoke(Request $request)

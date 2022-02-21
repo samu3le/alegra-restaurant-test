@@ -10,6 +10,21 @@ use App\Services\Response;
 use App\Models\ShoppingHistory;
 use App\Models\Ingredient;
 
+/**
+ * Controller get all shopping history of a ingredient on warehouse
+ * @param \Illuminate\Http\Request  $request {
+ *                                              query
+*                                               page
+*                                               per_page,
+*                                               sort_by
+                                            *}
+ * @param Closure return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                      'ingredient' => $ingredient,
+ *                      'shoppings' => $shoppingHistory,.
+ */
+
 class FindShopping extends Controller
 {
     public function __invoke(Request $request)
