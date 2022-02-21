@@ -10,6 +10,18 @@ use App\Services\Response;
 use App\Models\Product;
 use App\Models\Recipe;
 
+/**
+ * Controller Create Product
+ * @param \Illuminate\Http\Request  $request [body]{ name
+*                                               is_active
+*                                               image
+*                                               ingredients}
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::CREATED,
+ *                       'product' => $product,,
+ */
+
 class Create extends Controller
 {
     public function __invoke(Request $request)

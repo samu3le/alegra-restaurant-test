@@ -9,6 +9,18 @@ use App\Services\Response;
 
 use App\Models\Product;
 
+/**
+ * Controller Get all Product
+ * @param \Illuminate\Http\Request  $request [query]{ page
+*                                               per_page
+*                                               sort_by
+*                                               sort}
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                       'products' => $products,
+ */
+
 class GetAll extends Controller
 {
     public function __invoke(Request $request)

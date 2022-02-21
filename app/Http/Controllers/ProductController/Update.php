@@ -10,6 +10,18 @@ use App\Services\Response;
 use App\Models\Product;
 use App\Models\Recipe;
 
+/**
+ * Controller Update Product
+ * @param \Illuminate\Http\Request  $request [body]{ name
+*                                               is_active
+*                                               image
+*                                               ingredients}
+ * @param Closure  return App\Services\Response Response
+ *
+ * @return mixed return Response::OK,
+ *                       'product' => $product,,
+ */
+
 class Update extends Controller
 {
     public function __invoke(Request $request)
