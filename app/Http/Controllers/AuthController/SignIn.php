@@ -42,6 +42,13 @@ class SignIn extends Controller
                 ],
             );
         }
+        if(!$user->is_active){
+            return Response::UNAUTHORIZED(
+                errors: [
+                    'user' => ['User is not active.'],
+                ],
+            );
+        }
 
         $remember_me = isset($body['remember_me']) ? $body['remember_me'] : false;
 
