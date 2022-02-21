@@ -41,7 +41,7 @@ class FindShopping extends Controller
         $ingredient =  Ingredient::find($query['id']);
 
         if(isset($query['sort_by'])){
-            $shoppingHistory = $shoppingHistory->orderBy($query['sort_by'], $shoppingHistory['sort']);
+            $shoppingHistory = $shoppingHistory->orderBy($query['sort_by'], $query['sort']);
         }
 
         $shoppingHistory = $shoppingHistory->paginate(
