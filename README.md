@@ -34,28 +34,42 @@ https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-st
 
 ## Comandos para arrancar el contenedor:
 
-### Dentro de carpeta apps debe ejecutar 
-### Comandos para crear un contenedor:
+### 1- Crear archivo .env en cada uno de los contenedores de servicios y en carpeta apps
+    Puede usar de referencia el archivo .env.example
+
+### 2- Ingresar a carpeta apps 
+    cd apps/
+
+### 3- Ejecutar comandos para crear un contenedor:
     sudo docker-compose build --no-cache
     sudo docker-compose up -d --build --remove-orphans
 
-### Comandos para ver url de un contenedor:
+### 4- Ejecutar comando para ver direccion IP de un contenedor:
     docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' test_restaurant_db
 
-### Dentro de carpeta api-gateway (apps/api-gateway)
+### 5- Ingresar a carpeta de servicio api-gateway (apps/api-gateway)
+    cd api-gateway/
+### 6- Renombrar {DB_HOST} en archivo .env 
 
-#### Ingresa a contenedor principal
-    cd api-gateway
-#### Ejecutar migraciones    
+    Agregar direccion dada en el paso 4
+
+### 7- Ejecutar migraciones, (carga tabla en base de datos y datos de prueba)   
     php artisan migrate
+
+### 8- Renombrar {DB_HOST} en archivo .env 
+
+    Agregar nombre de host dado a base de datos (Use por defecto 'test_restaurant_db')   
 
 ### Ver ruta principal para iniciar el proyecto
 
     docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' apps_api_gateway_1
 
     Usar agregando prefijo '/api/v1/'
+
 ## Nota, comandos docker:
 
+### Comando para ver contenedores activos
+    docker ps
 ### Comandos para ver el log de un contenedor:
 
     sudo docker-compose logs -t -f web
