@@ -24,34 +24,21 @@ services:
         depends_on:
             - pgsql
     pgsql:
-        image: 'postgres:13'
-        ports:
-            - '${FORWARD_DB_PORT:-5434}:5432'
-        environment:
-            PGPASSWORD: '${DB_PASSWORD:-secret}'
-            POSTGRES_DB: '${DB_DATABASE}'
-            POSTGRES_USER: '${DB_USERNAME}'
-            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+        image: postgres:13.0-alpine
+        restart: 'always'
+        container_name: test_restaurant_db
         volumes:
-            - 'sail-pgsql:/var/lib/postgresql/data'
+            - postgres_data:/var/lib/postgresql/data/
+        environment:
+            POSTGRES_DB: "${DB_DATABASE}"
+            POSTGRES_USER: "${DB_USERNAME}"
+            POSTGRES_PASSWORD: "${DB_PASSWORD}"
+        ports:
+            - "5434:${DB_PORT}"
         networks:
             - sail
-        healthcheck:
-            test:
-                [
-                    "CMD",
-                    "pg_isready",
-                    "-q",
-                    "-d",
-                    "${DB_DATABASE}",
-                    "-U",
-                    "${DB_USERNAME}"
-                ]
-            retries: 3
-            timeout: 5s
 networks:
     sail:
         driver: bridge
 volumes:
-    sail-pgsql:
-        driver: local
+    postgres_data:

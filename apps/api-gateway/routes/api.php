@@ -14,20 +14,26 @@ use \Illuminate\Support\Facades\Http;
 Route::prefix('v1')->middleware([
     DataParser::class,
 ])->group(function () {
-    print_r("llego");
 
-    Route::match(['get', 'post'], '/auth/sign_in', function (Request $request) {
+    Route::get('/service1', function(Request $request) {
+        $response = \Illuminate\Support\Facades\Http::get('http://auth-service/service');
+        return new \Illuminate\Http\Response($response->body(), $response->status());
+     });
+
+    Route::match(['get', 'post'], '/auth/{route}', function (Request $request) {
+
+        $parameters = $request['parameters'];
         $method = $request->method();
         $url_service = 'http://auth-service/';
         $body = $request['body'];
         $query = http_build_query($request['query']);
-        $to = explode('/' ,url()->current());
-        print_r(url()->current()."method");
+        $to = $parameters['route'];
+
         if($method == 'GET') {
             $response = Http::get( $url_service . $to . '?' . $query );
         }else{
-            print_r(url()->current());
-            $response = Http::post( $url_service . $to . '?' . $query , $body);
+            $response = Http::acceptJson()->post( $url_service . $to . '?' . $query , $body);
+            print_r($response->json());
         }
         return response()->json($response->json(), $response->status());
     });
@@ -39,12 +45,18 @@ Route::prefix('v1')->middleware([
 
         Route::middleware([
             CanPermission::class.':manager',
-        ])->match(['get', 'post'], '/users', function (Request $request) {
+        ])->match(['get', 'post'], '/users/{route}', function (Request $request) {
+
+            $parameters = $request['parameters'];
             $method = $request->method();
             $url_service = 'http://users-service/';
             $body = $request['body'];
             $query = http_build_query($request['query']);
             $to = explode('/' ,url()->current());
+
+            print_r($parameters);
+            print_r("\nparameters \n");
+
             if($method == 'GET') {
                 $response = Http::get( $url_service . $to . '?' . $query );
             }else{

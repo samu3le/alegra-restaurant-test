@@ -10,6 +10,7 @@ services:
       dockerfile: Dockerfile
       args:
         WWWGROUP: '${GID}'
+
     image: sail-8.0/app
     extra_hosts:
       - 'host.docker.internal:host-gateway'
@@ -21,6 +22,8 @@ services:
       - './api-gateway/:/var/www/html'
     networks:
       - samu3le_restaurant_test
+    depends_on:
+      - pgsql
 
   auth-service:
     build:
@@ -37,6 +40,8 @@ services:
       - './auth-service/:/var/www/html'
     networks:
       - samu3le_restaurant_test
+    depends_on:
+      - pgsql
 
   ingredients-service:
     build:
@@ -53,6 +58,8 @@ services:
       - './ingredients-service/:/var/www/html'
     networks:
       - samu3le_restaurant_test
+    depends_on:
+      - pgsql
 
   orders-service:
     build:
@@ -69,6 +76,8 @@ services:
       - './orders-service/:/var/www/html'
     networks:
       - samu3le_restaurant_test
+    depends_on:
+      - pgsql
 
   products-service:
     build:
@@ -85,6 +94,8 @@ services:
       - './products-service/:/var/www/html'
     networks:
       - samu3le_restaurant_test
+    depends_on:
+      - pgsql
 
   users-service:
     build:
@@ -101,6 +112,8 @@ services:
       - './users-service/:/var/www/html'
     networks:
       - samu3le_restaurant_test
+    depends_on:
+      - pgsql
 
   warehouse-service:
     build:
@@ -117,3 +130,23 @@ services:
       - './warehouse-service/:/var/www/html'
     networks:
       - samu3le_restaurant_test
+    depends_on:
+      - pgsql
+
+  pgsql:
+    image: postgres:13.0-alpine
+    restart: 'always'
+    container_name: test_restaurant_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: "${DB_DATABASE}"
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    ports:
+      - "5434:${DB_PORT}"
+    networks:
+      - samu3le_restaurant_test
+
+volumes:
+  postgres_data:

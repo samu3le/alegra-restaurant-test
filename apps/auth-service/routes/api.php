@@ -12,17 +12,24 @@ use App\Http\Controllers;
 
 
 Route::middleware([
-    Requests\AuthValidation\SignUp::class,
-])
-->post('sign_up', Controllers\AuthController\SignUp::class);
+    DataParser::class,
+])->group(function () {
 
-Route::middleware([
-    Requests\AuthValidation\SignIn::class,
-])
-->post('sign_in', Controllers\AuthController\SignIn::class);
+    Route::get('service',function () {
+        return 'Hello World';
+    });
 
-Route::middleware([
-    Auth::class,
-])
-->post('sign_out', Controllers\AuthController\SignOut::class);
+    Route::middleware([
+        Requests\AuthValidation\SignUp::class,
+    ])
+    ->post('sign_up', Controllers\AuthController\SignUp::class);
+
+    Route::post('sign_in', Controllers\AuthController\SignIn::class);
+
+    Route::middleware([
+        Auth::class,
+    ])
+    ->post('sign_out', Controllers\AuthController\SignOut::class);
+
+});
 

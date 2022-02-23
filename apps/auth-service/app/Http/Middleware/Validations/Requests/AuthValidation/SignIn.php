@@ -21,6 +21,7 @@ use App\Services\Validator;
  */
 class SignIn
 {
+
     public function handle(Request $request, Closure $next)
     {
         $validator = Validator::make($request['body'], [
