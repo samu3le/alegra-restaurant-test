@@ -44,11 +44,16 @@ https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-st
 
 ### Dentro de carpeta api-gateway (apps/api-gateway)
 
-#### ingresa a contenedor principal
+#### Ingresa a contenedor principal
     cd api-gateway
 #### Ejecutar migraciones    
     php artisan migrate
 
+### Ver ruta principal para iniciar el proyecto
+
+    docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' apps_api_gateway_1
+
+    Usar agregando prefijo '/api/v1/'
 ## Nota, comandos docker:
 
 ### Comandos para ver el log de un contenedor:
