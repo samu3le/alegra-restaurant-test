@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\DataParser;
 use App\Http\Middleware\Auth;
 use App\Http\Middleware\CanPermission;
-use App\Http\Middleware\Validations;
-use App\Http\Middleware\Validations\Requests;
-use App\Http\Controllers;
+
 use \Illuminate\Support\Facades\Http;
 
 Route::prefix('v1')->middleware([
@@ -99,7 +97,7 @@ Route::prefix('v1')->middleware([
 
         Route::middleware([
             CanPermission::class.':kitchen',
-        ])->match(['get', 'post'], '/products{route}', function (Request $request) {
+        ])->match(['get', 'post'], '/products/{route}', function (Request $request) {
 
             $method = $request->method();
             $url_service = 'http://products-service/';
@@ -119,7 +117,7 @@ Route::prefix('v1')->middleware([
 
         Route::middleware([
             CanPermission::class.':warehouse',
-        ])->match(['get', 'post'], '/warehouse{route}', function (Request $request) {
+        ])->match(['get', 'post'], '/warehouse/{route}', function (Request $request) {
 
             $method = $request->method();
             $url_service = 'http://warehouse-service/';
