@@ -41,8 +41,7 @@ https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-st
     cd apps/
 
 ### 3- Ejecutar comandos para crear un contenedor:
-    sudo docker-compose build --no-cache
-    sudo docker-compose up -d --build --remove-orphans
+    sudo docker-compose up -d --remove-orphans
 
 ### 4- Ejecutar comando para ver direccion IP de un contenedor:
     docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' test_restaurant_db
