@@ -1,0 +1,11 @@
+# > En la linea en blanco luego de esta se debe escribir una descripción:
+
+# > Nombre de la sección que fue afectada (Roles, Auth, Users, Products, etc):
+- [SECTION] 
+
+# Tipo de cambio realizado [Add/Fix/Remove/Update/Refactor/Document/Test] [summary]
+- [TYPE] 
+
+# En la linea blanca luego de ese texto, agrega una descripción detallata
+# de los trabajos realizados
+# si este fue descrito en la primera linea (DESCRIPTION), omitir este paso.

@@ -1,0 +1,119 @@
+version: '3'
+networks:
+  samu3le_restaurant_test:
+    external: true
+services:
+
+  api_gateway:
+    build:
+      context: ./api-gateway/vendor/laravel/sail/runtimes/8.1
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${GID}'
+    image: sail-8.0/app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports:
+      - '8080:80'
+    environment:
+      WWWUSER: '${UID}'
+    volumes:
+      - './api-gateway/:/var/www/html'
+    networks:
+      - samu3le_restaurant_test
+
+  auth-service:
+    build:
+      context: ./auth-service/vendor/laravel/sail/runtimes/8.1
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${GID}'
+    image: sail-8.0/app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      WWWUSER: '${UID}'
+    volumes:
+      - './auth-service/:/var/www/html'
+    networks:
+      - samu3le_restaurant_test
+
+  ingredients-service:
+    build:
+      context: ./ingredients-service/vendor/laravel/sail/runtimes/8.1
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${GID}'
+    image: sail-8.0/app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      WWWUSER: '${UID}'
+    volumes:
+      - './ingredients-service/:/var/www/html'
+    networks:
+      - samu3le_restaurant_test
+
+  orders-service:
+    build:
+      context: ./orders-service/vendor/laravel/sail/runtimes/8.1
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${GID}'
+    image: sail-8.0/app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      WWWUSER: '${UID}'
+    volumes:
+      - './orders-service/:/var/www/html'
+    networks:
+      - samu3le_restaurant_test
+
+  products-service:
+    build:
+      context: ./products-service/vendor/laravel/sail/runtimes/8.1
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${GID}'
+    image: sail-8.0/app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      WWWUSER: '${UID}'
+    volumes:
+      - './products-service/:/var/www/html'
+    networks:
+      - samu3le_restaurant_test
+
+  users-service:
+    build:
+      context: ./users-service/vendor/laravel/sail/runtimes/8.1
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${GID}'
+    image: sail-8.0/app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      WWWUSER: '${UID}'
+    volumes:
+      - './users-service/:/var/www/html'
+    networks:
+      - samu3le_restaurant_test
+
+  warehouse-service:
+    build:
+      context: ./warehouse-service/vendor/laravel/sail/runtimes/8.1
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${GID}'
+    image: sail-8.0/app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      WWWUSER: '${UID}'
+    volumes:
+      - './warehouse-service/:/var/www/html'
+    networks:
+      - samu3le_restaurant_test
