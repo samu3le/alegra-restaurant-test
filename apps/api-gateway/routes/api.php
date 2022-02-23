@@ -54,11 +54,13 @@ Route::prefix('v1')->middleware([
                 $response = Http::acceptJson()->post( $url_service . $to . '?' . $query , $body);
             }
             return response()->json($response->json(), $response->status());
+
         });
 
         Route::middleware([
             CanPermission::class.':warehouse',
         ])->match(['get', 'post'], '/ingredients/{route}', function (Request $request) {
+
             $method = $request->method();
             $url_service = 'http://ingredients-service/';
             $body = $request['body'];
@@ -67,16 +69,18 @@ Route::prefix('v1')->middleware([
             $to = $parameters['route'];
 
             if($method == 'GET') {
-                $response = Http::get( $url_service . $to . '?' . $query );
+                $response = Http::acceptJson()->get( $url_service . $to . '?' . $query );
             }else{
-                $response = Http::post( $url_service . $to . '?' . $query , $body);
+                $response = Http::acceptJson()->post( $url_service . $to . '?' . $query , $body);
             }
             return response()->json($response->json(), $response->status());
+
         });
 
         Route::middleware([
             CanPermission::class.':manager', //kitchen add permission
         ])->match(['get', 'post'], '/orders/{route}', function (Request $request) {
+
             $method = $request->method();
             $url_service = 'http://orders-service/';
             $body = $request['body'];
@@ -85,16 +89,18 @@ Route::prefix('v1')->middleware([
             $to = $parameters['route'];
 
             if($method == 'GET') {
-                $response = Http::get( $url_service . $to . '?' . $query );
+                $response = Http::acceptJson()->get( $url_service . $to . '?' . $query );
             }else{
-                $response = Http::post( $url_service . $to . '?' . $query , $body);
+                $response = Http::acceptJson()->post( $url_service . $to . '?' . $query , $body);
             }
             return response()->json($response->json(), $response->status());
+
         });
 
         Route::middleware([
             CanPermission::class.':kitchen',
         ])->match(['get', 'post'], '/products{route}', function (Request $request) {
+
             $method = $request->method();
             $url_service = 'http://products-service/';
             $body = $request['body'];
@@ -103,16 +109,18 @@ Route::prefix('v1')->middleware([
             $to = $parameters['route'];
 
             if($method == 'GET') {
-                $response = Http::get( $url_service . $to . '?' . $query );
+                $response = Http::acceptJson()->get( $url_service . $to . '?' . $query );
             }else{
-                $response = Http::post( $url_service . $to . '?' . $query , $body);
+                $response = Http::acceptJson()->post( $url_service . $to . '?' . $query , $body);
             }
             return response()->json($response->json(), $response->status());
+
         });
 
         Route::middleware([
             CanPermission::class.':warehouse',
         ])->match(['get', 'post'], '/warehouse{route}', function (Request $request) {
+
             $method = $request->method();
             $url_service = 'http://warehouse-service/';
             $body = $request['body'];
@@ -120,12 +128,13 @@ Route::prefix('v1')->middleware([
             $parameters = $request['parameters'];
             $to = $parameters['route'];
 
-            if($method == 'GET') {
-                $response = Http::get( $url_service . $to . '?' . $query );
+             if($method == 'GET') {
+                $response = Http::acceptJson()->get( $url_service . $to . '?' . $query );
             }else{
-                $response = Http::post( $url_service . $to . '?' . $query , $body);
+                $response = Http::acceptJson()->post( $url_service . $to . '?' . $query , $body);
             }
             return response()->json($response->json(), $response->status());
+
         });
 
     });
