@@ -11,22 +11,31 @@ use App\Http\Middleware\Validations\Requests;
 use App\Http\Controllers;
 
 Route::middleware([
-    Validations\Requests\Pagination::class,
-    Requests\UserValidation\GetAll::class
-])
-->get('get_all',  Controllers\UserController\GetAll::class);
+    DataParser::class,
+])->group(function () {
 
-Route::middleware([
-    Requests\UserValidation\Find::class
-])
-->get('find',  Controllers\UserController\Find::class);
+    Route::middleware([
+        Validations\Requests\Pagination::class,
+        Requests\UserValidation\GetAll::class
+    ])
+    ->get('get_all',  Controllers\UserController\GetAll::class);
 
-Route::middleware([
-    Requests\UserValidation\Create::class
-])
-->post('create', Controllers\UserController\Create::class);
+    Route::middleware([
+        Requests\UserValidation\Find::class
+    ])
+    ->get('find',  Controllers\UserController\Find::class);
 
-Route::middleware([
-    Requests\UserValidation\Update::class
-])
-->post('update', Controllers\UserController\Update::class);
+    Route::middleware([
+        Requests\UserValidation\Create::class
+    ])
+    ->post('create', Controllers\UserController\Create::class);
+
+    Route::middleware([
+        Requests\UserValidation\Update::class
+    ])
+    ->post('update', Controllers\UserController\Update::class);
+
+});
+
+
+

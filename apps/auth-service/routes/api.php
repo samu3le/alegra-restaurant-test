@@ -15,10 +15,6 @@ Route::middleware([
     DataParser::class,
 ])->group(function () {
 
-    Route::get('service',function () {
-        return 'Hello World';
-    });
-
     Route::middleware([
         Requests\AuthValidation\SignUp::class,
     ])

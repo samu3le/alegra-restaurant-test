@@ -13,9 +13,3 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-
-/apps/api-gateway/vendor
-/apps/api-gateway/.env
-
-/apps/warehouse-service/vendor
-/apps/warehouse-service/.env
