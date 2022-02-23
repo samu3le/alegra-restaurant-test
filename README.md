@@ -34,8 +34,20 @@ https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-st
 
 ## Comandos para arrancar el contenedor:
 
+### Dentro de carpeta apps debe ejecutar 
+### Comandos para crear un contenedor:
     sudo docker-compose build --no-cache
     sudo docker-compose up -d --build --remove-orphans
+
+### Comandos para ver url de un contenedor:
+    docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' test_restaurant_db
+
+### Dentro de carpeta api-gateway (apps/api-gateway)
+
+#### ingresa a contenedor principal
+    cd api-gateway
+#### Ejecutar migraciones    
+    php artisan migrate
 
 ## Nota, comandos docker:
 

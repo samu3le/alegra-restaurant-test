@@ -21,22 +21,6 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
-        depends_on:
-            - pgsql
-    pgsql:
-        image: postgres:13.0-alpine
-        restart: 'always'
-        container_name: test_restaurant_db
-        volumes:
-            - postgres_data:/var/lib/postgresql/data/
-        environment:
-            POSTGRES_DB: "${DB_DATABASE}"
-            POSTGRES_USER: "${DB_USERNAME}"
-            POSTGRES_PASSWORD: "${DB_PASSWORD}"
-        ports:
-            - "5434:${DB_PORT}"
-        networks:
-            - sail
 networks:
     sail:
         driver: bridge

@@ -10,7 +10,6 @@ services:
       dockerfile: Dockerfile
       args:
         WWWGROUP: '${GID}'
-
     image: sail-8.0/app
     extra_hosts:
       - 'host.docker.internal:host-gateway'
