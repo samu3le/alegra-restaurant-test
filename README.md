@@ -1,6 +1,10 @@
 # Proyecto desplegado en Heroku
 https://test-restaurant-db.herokuapp.com/
 
+# Video guia para ininiar proyecto con Docker
+
+https://youtu.be/ZexPSy7Kpq0
+
 
 ## Entorno de desarrollo
 
