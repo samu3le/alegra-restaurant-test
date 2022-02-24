@@ -99,8 +99,8 @@ https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-st
 
 ## Postman Collection
 
-[Archivo .json](/public/postman/test-restaurant.postman_collection.json)
+[Archivo .json](/apps/public/postman/test-restaurant.postman_collection.json)
 
 ## Database structure
 
-![Diagram ERD](/public/diagrams/erd.png)
+![Diagram ERD](/apps/public/diagrams/erd.png)
